@@ -1,8 +1,10 @@
 # Flask_BestPractices
 ### <Flask最佳实践>
-[Flask官方文档]('http://flask.pocoo.org/docs/1.0/')
+Flask官方文档
+http://flask.pocoo.org/docs/1.0/
 
-[Flask中文文档]('https://dormousehole.readthedocs.io/en/latest/')
+Flask中文文档
+https://dormousehole.readthedocs.io/en/latest/
 
 ``` 
 Flask_BestPractices
@@ -243,7 +245,9 @@ Flask_BestPractices
             
         ```
 9. 部署:
-    * [我掘金的一篇文章](''https://juejin.im/post/5b41d6c9e51d45194557f59d)
+    * 我掘金的一篇文章
+    
+        https://juejin.im/post/5b41d6c9e51d45194557f59d
 
 10. 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
