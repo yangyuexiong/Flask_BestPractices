@@ -69,6 +69,8 @@ Flask_BestPractices
     │   └── libs -------------------------------->自定义封装的方法
     │       ├── __init__.py
     │       ├── api_result.py ------------->统一返回json格式
+    │       ├── BaseModel.py  ------------->封装的Model基类
+    │       ├── tools.py      ------------->工具
     │       └── customException.py -------->自定义flask_restful异常
     ├── config  ------------------------------------>配置文件
     │   ├── __init__.py
