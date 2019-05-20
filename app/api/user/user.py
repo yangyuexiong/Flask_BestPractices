@@ -25,6 +25,7 @@ class TestApi(Resource):
         return 'this api'
 
 
+# demo可删除
 class UserRegister(Resource):
     user_fields = {
         'user_id': fields.String(attribute='id'),
