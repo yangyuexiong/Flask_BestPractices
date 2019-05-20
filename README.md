@@ -24,8 +24,11 @@ Flask_BestPractices
     │   ├── api -------------------------->前台接口/模块
     │   │   ├── __init__.py -------------->Api url注册与管理
     │   │   └── user
-    │   │       ├── __init__.py
-    │   │       └── user.py
+    │   │   │   ├── __init__.py
+    │   │   │   └── user.py
+    │   │   └── demo
+    │   │   │   ├── __init__.py
+    │   │   │   └── demo.py -------------->flask resful demo
     │   ├── controllers ------------------>后台接口/模块
     │   │   ├── __init__.py
     │   │   ├── cms     ----------------------------->后台接口/模块
@@ -38,8 +41,11 @@ Flask_BestPractices
     │   │   │   │   ├── __init__.py
     │   │   │   │   └── m2.py
     │   │   │   └── cms_module_03 ------------>管理后台模块子模块
-    │   │   │       ├── __init__.py
-    │   │   │       └── m3.py
+    │   │   │   │   ├── __init__.py
+    │   │   │   │   └── m3.py
+    │   │   │   └── demo
+    │   │   │   ├── __init__.py
+    │   │   │   └── demo.py -------------->MethodView demo
     │   │   ├── other_module_01 --------->其他独立模块独立的蓝图
     │   │   │   ├── __init__.py
     │   │   │   └── module_01.py 
