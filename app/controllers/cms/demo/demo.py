@@ -13,7 +13,6 @@ class MethodViewTest(MethodView):
     """
     url不传参数则使用默认参数 page=1, size=10
 
-    http://0.0.0.0:9999/cms/test4/99/88/
     """
 
     def get(self, page=1, size=10):
