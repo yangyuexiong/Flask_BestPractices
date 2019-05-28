@@ -112,6 +112,21 @@ Flask_BestPractices
         ```
         pipenv install
         ```
+    * pycharm配置pipenv环境
+
+        查看虚拟环境路径
+        ```
+        pipenv shell
+        pipenv --venv
+        ```
+
+        pycharm添加
+
+        ![image](/p1.png)
+        
+        ![image](/p2.png)
+
+        
 2. 修改config.py文件
     * 数据库部分(先创建好数据库)
     * 其他配置根据需要修改/增加
