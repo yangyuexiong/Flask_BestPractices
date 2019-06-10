@@ -10,9 +10,9 @@ from flask_restful import Resource
 
 class DemoApi(Resource):
     """
+    参数使用:
         url不传参数则使用默认参数 page=1, size=10
-
-        """
+    """
 
     def get(self, page=1, size=10):
         return 'flask resful get 参数{},{}'.format(page, size)

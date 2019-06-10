@@ -50,7 +50,7 @@ route_admin.add_url_rule('/test2', methods=["GET", "POST"], endpoint='rule_test0
 route_admin.add_url_rule('/test3', methods=["GET", "POST"], endpoint='rule_test03', view_func=rule_test03)
 
 """
-MethodView_demo
+使用类视图:MethodView_demo
 """
 # 带参数url需要分开注册否则报错（flask_resful则不用 参照文件:Flask_BestPractices/app/api/__init__.py）
 # 无参数: http://0.0.0.0:9999/cms/demo/

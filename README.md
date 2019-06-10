@@ -1,5 +1,13 @@
 # Flask_BestPractices
 ### <Flask最佳实践>
+---------->>>>>>持续更新<<<<<<----------
+
+后续会使用此结构加上Vue与React实现一套前后分离的博客前后台。
+
+可能会再出Tornado，Sanic，Django等最佳实践。
+
+star！ star！ star！ go！ go！ go！
+
 Flask官方文档
 http://flask.pocoo.org/docs/1.0/
 
