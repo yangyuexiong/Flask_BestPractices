@@ -57,6 +57,14 @@ class BaseConfig:
     RUN_HOST = '0.0.0.0'
     RUN_PORT = 9999
 
+    @staticmethod
+    def init_app(app):
+        pass
+
+
+class DevelopmentConfig(BaseConfig):
+    """开发环境"""
+
     """Mysql"""
     HOSTNAME = '127.0.0.1'
     PORT = '3306'
@@ -79,22 +87,32 @@ class BaseConfig:
     POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True, db=1)
     R = redis.Redis(connection_pool=POOL)
 
-    @staticmethod
-    def init_app(app):
-        pass
-
 
 class ProductionConfig(BaseConfig):
     """生产环境"""
     DEBUG = False
     RUN_PORT = 5000
-    PASSWORD = 'okcokc111111'  # mysql
-    REDIS_PWD = 'okc1111'  # redis
 
+    """Mysql"""
+    HOSTNAME = '127.0.0.1'
+    PORT = '3306'
+    USERNAME = 'root'
+    PASSWORD = ''
+    DATABASE = 'Flask_BestPractices'
+    # &autocommit=true
+    DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
+        USERNAME,
+        PASSWORD,
+        HOSTNAME,
+        PORT,
+        DATABASE)
+    SQLALCHEMY_DATABASE_URI = DB_URI
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 
-class DevelopmentConfig(BaseConfig):
-    """开发环境"""
-    pass
+    """Redis"""
+    # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
+    POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True, db=1)
+    R = redis.Redis(connection_pool=POOL)
 
 
 config_obj = {

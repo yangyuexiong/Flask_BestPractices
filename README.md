@@ -1,5 +1,7 @@
 # Flask_BestPractices
-### <Flask最佳实践>
+## <Flask最佳实践>
+#### 包含前后端分离/与不分离模版渲染
+
 ---------->>>>>>持续更新<<<<<<----------
 
 后续会使用此结构加上Vue与React实现一套前后分离的博客前后台。
@@ -139,15 +141,22 @@ Flask_BestPractices
     * 数据库部分(先创建好数据库)
     * 其他配置根据需要修改/增加
 
-3. 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理)
+3. 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理) 
+
+    * manage.py文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py文件)
+        ```
+        查看所有方法:
+        pipenv run python3 manage.py
+        ```
+
     * 如直接使用(注意需要在虚拟环境中执行:即 pipenv shell)
 
         ```
-        python3 manage.py orm
+        pipenv run python3 manage.py orm
         ```
     * 新增modle表manage.py导入后再次执行(区别在于没有初始化:python3 manage.py db init)
         ```
-        python3 manage.py table
+        pipenv run python3 manage.py table
         ```
 
 4. 业务实现
@@ -197,7 +206,7 @@ Flask_BestPractices
         ```
     * 启动
         ```
-        python3 run.py
+        pipenv run python3 run.py
         ```
     
 6. 访问例子(注意在url末尾要加上'/'否则会出现308报错):
@@ -275,7 +284,7 @@ Flask_BestPractices
                     ab_code(666)
             
         ```
-9. 部署:
+9. 部署(文章较旧后续更新):
     * 我掘金的一篇文章
     
         https://juejin.im/post/5b41d6c9e51d45194557f59d

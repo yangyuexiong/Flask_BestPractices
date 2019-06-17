@@ -15,6 +15,8 @@ def before_request_cms():
     print('cms before_request')
     path = request.path
     print(path)
+    if request.method == 'OPTIONS':
+        return
     if '/cms' in path:
         print('访问cms')
         return
