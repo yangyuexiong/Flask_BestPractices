@@ -21,7 +21,7 @@ class TestApi(Resource):
         # 1 / 0
 
         '''CustomException'''
-        ab_code(666)
+        # ab_code(666)
         return 'this api'
 
 

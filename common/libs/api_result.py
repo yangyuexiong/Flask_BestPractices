@@ -23,4 +23,3 @@ def api_result(code=None, message=None, data=None, details=None, status=None):
     return jsonify(result)
 
 
-

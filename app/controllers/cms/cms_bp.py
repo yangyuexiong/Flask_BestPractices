@@ -33,7 +33,7 @@ def error_test(n):
 
 @route_admin.route('/', methods=["GET", "POST"])
 def index():
-    error_test(1)
+    # error_test(1)
     return jsonify('this cms')
 
 

@@ -111,6 +111,7 @@ class ProductionConfig(BaseConfig):
 
     """Redis"""
     # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
+    REDIS_PWD = 123456
     POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True, db=1)
     R = redis.Redis(connection_pool=POOL)
 
