@@ -284,10 +284,10 @@ Flask_BestPractices
                     ab_code(666)
             
         ```
-9. 部署(文章较旧后续更新):
+9. 部署(2019-06-18更新):
     * 我掘金的一篇文章
     
-        https://juejin.im/post/5b41d6c9e51d45194557f59d
+        https://juejin.im/post/5d08574351882563f967d5b9
 
 10. 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
