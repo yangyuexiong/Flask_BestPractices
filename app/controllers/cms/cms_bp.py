@@ -10,31 +10,35 @@ from .cms_module_01.m1 import rule_test01
 from .cms_module_02.m2 import rule_test02
 from .cms_module_03.m3 import rule_test03
 from .demo.demo import MethodViewTest
+from common.libs.customException import ab_code
 
 route_admin = Blueprint('cms', __name__)
 
 
-def error_test(n):
-    '''全局异常测试'''
-
-    '''HTTPException'''
-    if n == 1:
-        abort(404)
-
-    '''Exception'''
-    if n == 2:
-        1 / 0
-
-    '''CustomException'''
-    if n == 3:
-        from common.libs.customException import ab_code
-        ab_code(666)
-
-
 @route_admin.route('/', methods=["GET", "POST"])
 def index():
-    # error_test(1)
     return jsonify('this cms')
+
+
+@route_admin.route('/test_http_exception', methods=["GET", "POST"])
+def t_http_exc():
+    """测试HTTP异常"""
+    abort(404)
+    return
+
+
+@route_admin.route('/test_custom_exception', methods=["GET", "POST"])
+def t_custom_exc():
+    """测试自定义异常"""
+    ab_code(666)
+    return
+
+
+@route_admin.route('/test_exception', methods=["GET", "POST"])
+def t_exc():
+    """测试内部异常"""
+    1 / 0
+    return '1'
 
 
 """

@@ -104,8 +104,10 @@ Flask_BestPractices
     ├── run.py   ---------------------------------->启动文件
     ├── tasks    ---------------------------------->定时任务
     │   └── __init__.py
-    ├── test     ---------------------------------->测试文件
+    ├── test     ---------------------------------->测试文件(测试数据文件,单元测试等等)
     │   ├── __init__.py
+    │   ├── excep_test.py
+    │   ├── test_data.py
     │   └── req_test.py
     └── test_run.py ------------------------------->启动文件
 
@@ -141,7 +143,7 @@ Flask_BestPractices
     * 数据库部分(先创建好数据库)
     * 其他配置根据需要修改/增加
 
-3. 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理) 
+3. 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理 和 manage shell) 
 
     * manage.py文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py文件)
         ```
@@ -209,7 +211,7 @@ Flask_BestPractices
         pipenv run python3 run.py
         ```
     
-6. 访问例子(注意在url末尾要加上'/'否则会出现308报错):
+6. 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/'):
 
     * api:
         ```
@@ -271,14 +273,13 @@ Flask_BestPractices
                     }
                     code = C.get(data)[0]
                     msg = C.get(data)[1]
-                    raise AbortCode(code=code, msg=msg)
+                    raise CustomException(code=code, msg=msg)
 
             3.调用非常的简单
                 例子文件
                     <Flask_BestPractices/app/api/user/user.py>
                 例子文件
                     <Flask_BestPractices/app/controllers/cms/cms_bp.py>
-                
                 使用:
                     from common.libs.customException import ab_code
                     ab_code(666)

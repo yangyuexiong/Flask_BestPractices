@@ -47,24 +47,6 @@ class CustomException(HTTPException):
             self.msg = msg
         super(CustomException, self).__init__(self.msg, None)
 
-    def get_body(self, environ=None):
-        body = dict(
-            msg=self.msg,
-            error_code=self.error_code,
-            request=request.method + ' ' + self.get_url_no_param()
-        )
-        text = json.dumps(body)
-        return text
-
-    def get_headers(self, environ=None):
-        return [('Content-Type', 'application/json')]
-
-
-class AbortCode(CustomException):
-    code = 999
-    msg = '未设置自定义的异常消息'
-    error_code = 1006
-
 
 def ab_code(data):
     C = {
@@ -76,4 +58,4 @@ def ab_code(data):
     }
     code = C.get(data)[0]
     msg = C.get(data)[1]
-    raise AbortCode(code=code, msg=msg)
+    raise CustomException(code=code, msg=msg)
