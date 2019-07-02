@@ -293,11 +293,12 @@ Flask_BestPractices
 9. 任务
     * 异步任务
     ```
-    启动celery例子(必须要在/CeleryAsyncTasks目录下启动):
+    注意:配置好redis,如果使用MQ等其他需要对应修改配置后在启动
+    启动celery例子(必须要在/CeleryAsyncTasks目录下启动以及配置好redis):
         /CeleryAsyncTasks/main.py里面含有启动/停止等命令例子,模拟邮件发送任务例子.
 
     调用任务例子:
-        启动后调用任务例子(注意配置好redis,如果使用MQ等其他需要对应修改配置后在启动):
+        启动后调用任务例子:
         调用任务例子: /test/test_celery.py
     ```
 
