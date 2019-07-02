@@ -15,6 +15,9 @@ requests = "*"
 flask-script = "*"
 flask-migrate = "*"
 pymysql = "*"
+celery = "*"
+apschaduler = "*"
+apscheduler = "*"
 
 [requires]
 python_version = "3.7"

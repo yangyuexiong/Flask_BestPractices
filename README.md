@@ -8,7 +8,7 @@
 
 可能会再出Tornado，Sanic，Django等最佳实践。
 
-star！ star！ star！ go！ go！ go！
+点个星可好！
 
 Flask官方文档
 http://flask.pocoo.org/docs/1.0/
@@ -102,13 +102,18 @@ Flask_BestPractices
     │   └── versions
     │       └── c53b9b89b620_.py
     ├── run.py   ---------------------------------->启动文件
-    ├── tasks    ---------------------------------->定时任务
+    ├── tasks    ---------------------------------->定时任务/异步任务
     │   └── __init__.py
+    │   └── APSchedulerTasks    ---------------------------------->定时任务
+    │       └── clear_logs.py   ---------------------------------->使用/任务/启动方式/例子/解释
+    │   └── CeleryAsyncTasks    ---------------------------------->异步任务
+    │       └── main.py     ---------------------------------->使用/任务/启动方式/例子/解释
     ├── test     ---------------------------------->测试文件(测试数据文件,单元测试等等)
     │   ├── __init__.py
     │   ├── excep_test.py
     │   ├── test_data.py
     │   └── req_test.py
+    │   └── test_celery.py
     └── test_run.py ------------------------------->启动文件
 
 ```
@@ -120,7 +125,7 @@ Flask_BestPractices
         ```
         pip3 install pipenv
         ```
-    * 进入根目录安装项目环境
+    * 进入根目录安装项目环境(即:所有使用到的python库)
         ```
         pipenv install
         ```
@@ -285,11 +290,30 @@ Flask_BestPractices
                     ab_code(666)
             
         ```
-9. 部署(2019-06-18更新):
+9. 任务
+    * 异步任务
+    ```
+    启动celery例子(必须要在/CeleryAsyncTasks目录下启动):
+        /CeleryAsyncTasks/main.py里面含有启动/停止等命令例子,模拟邮件发送任务例子.
+
+    调用任务例子:
+        启动后调用任务例子(注意配置好redis,如果使用MQ等其他需要对应修改配置后在启动):
+        调用任务例子: /test/test_celery.py
+    ```
+
+    * 定时任务
+    ```
+    使用例子:
+        /tasks/APSchedulerTasks/clear_log.py文件中包含3钟常用方法,以清除日子为例子
+    启动:
+        /APSchedulerTasks目录下直接执行clear_log.py文件
+    ```
+
+10. 部署(2019-06-18更新):
     * 我掘金的一篇文章
     
         https://juejin.im/post/5d08574351882563f967d5b9
 
-10. 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
+11. 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
-11. 快试试快速实现你业务需求吧！！！嘻嘻！！！
+12. 快试试快速实现你业务需求吧！！！嘻嘻！！！
