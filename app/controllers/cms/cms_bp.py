@@ -31,7 +31,6 @@ def t_http_exc():
 def t_custom_exc():
     """测试自定义异常"""
     ab_code(666)
-    return
 
 
 @route_admin.route('/test_exception', methods=["GET", "POST"])
@@ -42,14 +41,15 @@ def t_exc():
 
 
 """
-route_demo 与 如下 完全一样 该写法为了统一管理url
+路由:route_demo 与 如下 完全一样
 
 @route_admin.route('/', methods=["GET", "POST"])
 def index():
     return 'hello flask'
-    
+
+如下写法为了统一管理url
 """
-route_admin.add_url_rule('/test', methods=["GET", "POST"], endpoint='rule_test01', view_func=rule_test01)
+route_admin.add_url_rule('/test1', methods=["GET", "POST"], endpoint='rule_test01', view_func=rule_test01)
 route_admin.add_url_rule('/test2', methods=["GET", "POST"], endpoint='rule_test02', view_func=rule_test02)
 route_admin.add_url_rule('/test3', methods=["GET", "POST"], endpoint='rule_test03', view_func=rule_test03)
 

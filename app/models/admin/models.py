@@ -6,7 +6,7 @@
 # @Software: PyCharm
 
 from ExtendRegister.db_register import db
-from datetime import datetime
+from common.libs.BaseModel import BaseModel
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -42,12 +42,12 @@ cms_role_user = db.Table(
 
 
 # CMS角色
-class CMSRole(db.Model):
+class CMSRole(BaseModel):
     __tablename__ = 'cms_role'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
     desc = db.Column(db.String(200), nullable=True)
-    create_time = db.Column(db.DateTime, default=datetime.now)
+    # create_time = db.Column(db.DateTime, default=datetime.now)
     permissions = db.Column(db.Integer, default=CMSPersmission.VISITOR)
 
     # 引用模型:CMSUser
@@ -57,12 +57,13 @@ class CMSRole(db.Model):
 
 
 # CMS用户
-class CMSUser(db.Model):
+class CMSUser(BaseModel):
     __tablename__ = 'cms_user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(50), nullable=False)
     _password = db.Column(db.String(100), nullable=False)
-    join_time = db.Column(db.DateTime, server_default=db.func.now())
+
+    # join_time = db.Column(db.DateTime, server_default=db.func.now())
 
     def __init__(self, username, password):
         self.username = username

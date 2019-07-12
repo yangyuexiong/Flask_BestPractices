@@ -51,7 +51,8 @@ def errors(e):
     if isinstance(e, CustomException):
         print('-----CustomException-----')
         tb('-----CustomException-----')
-        return api_result(code=e.code, message=e.msg, data=request.method + ' ' + request.path)
+        return api_result(code=e.code, message='CustomException:【{}】'.format(str(e.msg)),
+                          data=request.method + ' ' + request.path)
 
     if isinstance(e, HTTPException) and (300 <= e.code < 600):
         print('-----HTTPException-----')

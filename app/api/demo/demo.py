@@ -6,6 +6,14 @@
 # @Software: PyCharm
 
 from flask_restful import Resource
+from common.libs.customException import ab_code
+import requests
+
+
+class Index(Resource):
+
+    def get(self):
+        return 'flask api'
 
 
 class DemoApi(Resource):
@@ -25,3 +33,39 @@ class DemoApi(Resource):
 
     def delete(self, page=1, size=10):
         return 'flask resful delete 参数{},{}'.format(page, size)
+
+
+class HttpExceptionTest(Resource):
+
+    def get(self):
+        """
+        测试HTTP异常
+
+        :return:
+        """
+        # 模拟一个没有的url发出请求
+        r = requests.get('http://0.0.0.0:9999/api/xxxx')
+        return r.json()
+
+
+class CustomExceptionTest(Resource):
+
+    def get(self):
+        """
+        测试自定义异常
+
+        :return:
+        """
+        ab_code(333)
+
+
+class BaseExceptionTest(Resource):
+
+    def get(self):
+        """
+        测试内部异常
+
+        :return:
+        """
+        1 / 0
+        return

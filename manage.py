@@ -141,7 +141,11 @@ if __name__ == '__main__':
 
         traceback.print_exc()
 
-    '''数据库'''
+    '''
+    数据库
+    在pipenv环境中在每个命令前加上 pipenv run
+    如:pipenv run python3 manage.py 
+    '''
     # 初始化迁移环境:python3 manage.py db init
     # 迁移数据库:python3 manage.py db migrate
     # 映射数据库:python3 manage.py db upgrade
