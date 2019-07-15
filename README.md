@@ -201,23 +201,32 @@ Flask_BestPractices
 
         ![image](/p6.png)
 
-2. 尝试启动项目:
+2. 配置启动变量与启动:
 
-    ide运行:
-    * 更换注释-使用run.py中的:
+    ide配置(Windows与MacOs一样):
 
-        ```
-        main('pyc')
-        ```
+    ![image](/p10.png)
 
     * Pycharm启动项目(因为已经配置好了pipenv与FLASK_ENV)所以可以直接运行run.py文件
 
-    终端运行:
-    * 更换注释-使用run.py下的
-        ```
-        main('ter')
-        ```
-    * 进入到项目根目录
+    终端运行启动变量配置:
+    * Windows添加变量
+    
+    ![image](/p3.png)
+
+    变量名填入:STARTUP_MODE
+
+    变量值填入:ter
+
+    * MacOs
+
+    与上面一样在 vim ~/.bashrc 中加入变量
+
+    ![image](/p11.png)
+
+    * Linux(不需要添加)
+
+    * 在终端启动,进入到项目根目录
         ```
         进入虚拟环境:
             pipenv shell
