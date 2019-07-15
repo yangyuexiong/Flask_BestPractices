@@ -224,7 +224,7 @@ Flask_BestPractices
 
     ![image](/p11.png)
 
-    * Linux(不需要添加)
+    * Linux(不需要添加,以为在代码中已经处理好了)
 
     * 在终端启动,进入到项目根目录
         ```
@@ -233,6 +233,10 @@ Flask_BestPractices
         启动:
             python3 run.py
         ```
+        
+    以下分别是PyCharm与终端的启动
+    
+    ![image](/p12.png)
 
 3. 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
 
