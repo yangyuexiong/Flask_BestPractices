@@ -128,7 +128,8 @@ Flask_BestPractices
 
 ```
 ### 【使用】
-1. 环境配置
+1. #### 环境配置
+
     * 安装Python3.7+
     * 安装pip3
     * 安装pipenv
@@ -154,18 +155,18 @@ Flask_BestPractices
         ![image](/p2.png)
 
 
-    * 配置Pycharm的Flask变量(因为Pycharm运行项目不会读取系统变量所有要配置在Pycharm中)
+    * 配置Pycharm的Flask变量(因为Pycharm运行项目不会读取系统变量所以要配置在Pycharm中)
 
         ![image](/p7.png)
         ![image](/p8.png)
         ![image](/p9.png)
 
-        这样Pycharm运行就有了环境变量
+        这样Pycharm运行就有了虚拟环境变量。
 
-    * 配置Flask系统变量(原本操作系统中是没有FLASK_ENV变量的所以flask启动的时候默认为production,为了区分开发/生产需要通过一下方式配置)(以下配置只能在终端启动项目生效在Pycharm不生效)
+    * 配置Flask系统变量(原本操作系统中是没有FLASK_ENV变量的所以Flask启动的时候默认为production,为了区分开发/生产需要通过以下方式配置)(以下配置只能在终端启动项目生效在Pycharm不生效)
         
         方法一(这种方法在每次启动项目前都必须设置一次,因为不会保存在操作系统中):
-            在终端键入(属于临时变量使用之后就会失效)
+            在终端键入(属于临时变量使用之后就会失效,建议用于调试临时覆盖原有变量)
 
             ```
             开发环境:
@@ -173,9 +174,9 @@ Flask_BestPractices
             生成环境:                
                 export FLASK_ENV=production
             ```
-        方法二(直接把变量写在操作系统中):
+        方法二(直接把变量设置在操作系统中,建议使用该方法设置变量):
 
-        Windows系统(一般用于开发环境,所有配置为开发的变量:development):        
+        #### Windows系统(一般用于开发环境,所有配置为开发的变量:development):        
 
         ![image](/p3.png)
 
@@ -183,11 +184,11 @@ Flask_BestPractices
 
         变量值填入:development
 
-        MacOS系统(同样也配置为开发环境,所有配置为开发的变量:development):
+        #### MacOS系统(同样也配置为开发环境,所有配置为开发的变量:development):
 
         打开文件找到 .bash_profile文件(如果没看到这个文件 按: shift按键+command按键+ . 按键。就会显示隐藏文件因为隐藏文件一般不显示/需要使其隐藏 再按一次 shift按键+command按键+ . 按键)
 
-        或者可以在终端键入 : vim ~/.bash_profile 添加完 保存。键入:sourec ~/.bash_profile 生效配置文件。
+        或者可以在终端键入: vim ~/.bash_profile 添加完 保存。键入:sourec ~/.bash_profile 生效配置文件。
 
         如果想切换生产环境则修改配置环境即可。
 
@@ -201,7 +202,7 @@ Flask_BestPractices
 
         ![image](/p6.png)
 
-2. 配置启动变量与启动:
+2. #### 配置启动变量与启动项目:
 
     ide配置(Windows与MacOs一样):
 
@@ -224,7 +225,7 @@ Flask_BestPractices
 
     ![image](/p11.png)
 
-    * Linux(不需要添加,以为在代码中已经处理好了)
+    * Linux(不需要添加,因为在代码中已经处理好了)
 
     * 在终端启动,进入到项目根目录
         ```
@@ -238,7 +239,7 @@ Flask_BestPractices
     
     ![image](/p12.png)
 
-3. 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
+3. #### 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
 
     * api:
         ```
@@ -266,12 +267,12 @@ Flask_BestPractices
         http://0.0.0.0:9999/m3/index/
         ```
 
-4. 修改config.py文件
+4. #### 修改config.py文件
     * 数据库部分(先创建好数据库)
     * 其他配置根据需要修改/增加
 
 
-5. 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理 和 manage shell) 
+5. #### 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell) 
 
     * manage.py文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py文件)
         ```
@@ -289,7 +290,7 @@ Flask_BestPractices
         pipenv run python3 manage.py table
         ```
 
-6. 业务实现
+6. #### 业务实现
     * 前台业务 app/api/下根据需要创建模块在<Flask_BestPractices/app/api/__init__.py>中注册url即可。
     例子: /app/api/__init__.py
     * 后台业务 app/controllers/cms下根据需要创建模块在<Flask_BestPractices/app/controllers/cms/cms_bp.py>注册url即可。
@@ -297,7 +298,7 @@ Flask_BestPractices
     例子: /app/controllers/cms/cms_bp.py
 
 
-7. 钩子函数(拦截器)使用:
+7. #### 钩子函数(拦截器)使用:
     * 拿其中一个举例:<Flask_BestPractices/common/interceptors/ApiHook.py>业务逻辑根据自己需要编写
     
         ```
@@ -314,7 +315,7 @@ Flask_BestPractices
                 return 
         ```
 
-8. 自定义异常添加使用:
+8. #### 自定义异常添加使用:
     * 在<Flask_BestPractices/common/libs/customException.py>添加
         ```
             1.在文件中添加元组变量 例如
@@ -360,7 +361,7 @@ Flask_BestPractices
                     ab_code(666)
             
         ```
-9. 任务
+9. #### 任务
     * 异步任务
     ```
     注意:配置好redis,如果使用MQ等其他需要对应修改配置后在启动
@@ -380,11 +381,11 @@ Flask_BestPractices
         /APSchedulerTasks目录下直接执行clear_log.py文件
     ```
 
-10. 部署(2019-06-18更新):
+10. #### 部署(2019-06-18更新):
     * 我掘金的一篇文章
     
         https://juejin.im/post/5d08574351882563f967d5b9
 
-11. 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
+11. #### 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
-12. 快试试快速实现你业务需求吧！！！嘻嘻！！！
+12. #### 快试试快速实现你业务需求吧！！！嘻嘻！！！
