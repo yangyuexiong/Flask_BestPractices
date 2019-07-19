@@ -13,7 +13,15 @@ import requests
 class Index(Resource):
 
     def get(self):
-        return 'flask api'
+        import os
+        import threading
+        from flask import jsonify
+        return jsonify({
+            'path:"/api/"': 'flask api',
+            'threading': threading.get_ident(),
+            '当前进程id': os.getpid(),
+            '父进程id': os.getppid(),
+        })
 
 
 class DemoApi(Resource):
