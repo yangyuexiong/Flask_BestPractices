@@ -11,7 +11,7 @@
 
 点个星可好！
 
-如有发现问题 issues
+发现问题 issues
 
 Flask官方文档
 http://flask.pocoo.org/docs/1.0/
@@ -150,16 +150,16 @@ Flask_BestPractices
 
         pycharm添加
 
-        ![image](/p1.png)
+        ![image](images/p1.png)
         
-        ![image](/p2.png)
+        ![image](images/p2.png)
 
 
     * 配置Pycharm的Flask变量(因为Pycharm运行项目不会读取系统变量所以要配置在Pycharm中)
 
-        ![image](/p7.png)
-        ![image](/p8.png)
-        ![image](/p9.png)
+        ![image](images/p7.png)
+        ![image](images/p8.png)
+        ![image](images/p9.png)
 
         这样Pycharm运行就有了虚拟环境变量。
 
@@ -178,7 +178,7 @@ Flask_BestPractices
 
         #### Windows系统(一般用于开发环境,所有配置为开发的变量:development):        
 
-        ![image](/p3.png)
+        ![image](images/p3.png)
 
         变量名填入:FLASK_ENV
 
@@ -192,28 +192,28 @@ Flask_BestPractices
 
         如果想切换生产环境则修改配置环境即可。
 
-        ![image](/p4.png)
+        ![image](images/p4.png)
 
-        ![image](/p5.png)
+        ![image](images/p5.png)
 
-        Linux系统(一般使用为生产环境,所有配置为生产的变量:production)
+        ### Linux系统(一般使用为生产环境,所有配置为生产的变量:production)
         
         与MacOS系统类似只是文件名称有些区别: vim ~/.bashrc 添加完 保存。键入:sourec ~/.bashrc 生效配置文件。
 
-        ![image](/p6.png)
+        ![image](images/p6.png)
 
 2. #### 配置启动变量与启动项目:
 
     ide配置(Windows与MacOs一样):
 
-    ![image](/p10.png)
+    ![image](images/p10.png)
 
     * Pycharm启动项目(因为已经配置好了pipenv与FLASK_ENV)所以可以直接运行run.py文件
 
     终端运行启动变量配置:
     * Windows添加变量
     
-    ![image](/p3.png)
+    ![image](images/p3.png)
 
     变量名填入:STARTUP_MODE
 
@@ -223,7 +223,7 @@ Flask_BestPractices
 
     与上面一样在 vim ~/.bashrc 中加入变量
 
-    ![image](/p11.png)
+    ![image](images/p11.png)
 
     * Linux(不需要添加,因为在代码中已经处理好了)
 
@@ -237,7 +237,7 @@ Flask_BestPractices
         
     以下分别是PyCharm与终端的启动
     
-    ![image](/p12.png)
+    ![image](images/p12.png)
 
 3. #### 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
 
@@ -389,3 +389,4 @@ Flask_BestPractices
 11. #### 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
 12. #### 快试试快速实现你业务需求吧！！！嘻嘻！！！
+

@@ -5,12 +5,12 @@
 # @File    : run.py
 # @Software: PyCharm
 
+import os
+import warnings
+import platform
+import threading
 
 from ApplicationExample import create_app
-import os
-import platform
-import warnings
-import threading
 from ExtendRegister.hook_register import *  # 导入拦截器
 from ExtendRegister.excep_register import *  # 导入异常处理器
 

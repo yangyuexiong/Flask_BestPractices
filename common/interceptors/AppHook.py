@@ -5,8 +5,9 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
+from flask import request
+
 from ApplicationExample import create_app
-from flask import request, g, jsonify
 
 app = create_app()
 

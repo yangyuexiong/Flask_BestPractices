@@ -5,15 +5,17 @@
 # @File    : excep_register.py
 # @Software: PyCharm
 
-from flask import request
-from werkzeug.exceptions import HTTPException
-from common.libs.api_result import api_result
 import traceback
 import datetime
+import os
+
+from flask import request
+from werkzeug.exceptions import HTTPException
+
 from app.api import route_api
 from common.libs.customException import CustomException
+from common.libs.api_result import api_result
 from config.config import config_obj
-import os
 
 
 def tb(excep):

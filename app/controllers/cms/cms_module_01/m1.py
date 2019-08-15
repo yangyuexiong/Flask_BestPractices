@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 from flask import request
+
 from common.libs.api_result import api_result
 
 
@@ -16,6 +17,3 @@ def rule_test01():
         print('post')
     # return 'cms_module_01'
     return api_result(code=200, message='rule_test01', data=[])
-
-
-

@@ -5,9 +5,9 @@
 # @File    : main.py
 # @Software: PyCharm
 
+from time import sleep
 
 from celery import Celery
-from time import sleep
 
 BROKER_URL = 'redis://root:123456@localhost:6379/7'
 CELERY_RESULT_BACKEND = 'redis://root:123456@localhost:6379/8'

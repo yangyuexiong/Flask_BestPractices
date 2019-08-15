@@ -5,9 +5,10 @@
 # @File    : models.py
 # @Software: PyCharm
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 from ExtendRegister.db_register import db
 from common.libs.BaseModel import BaseModel
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 # 权限

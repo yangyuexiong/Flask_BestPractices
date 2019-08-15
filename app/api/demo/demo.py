@@ -5,9 +5,11 @@
 # @File    : demo.py
 # @Software: PyCharm
 
-from flask_restful import Resource
-from common.libs.customException import ab_code
 import requests
+
+from flask_restful import Resource
+
+from common.libs.customException import ab_code
 
 
 class Index(Resource):

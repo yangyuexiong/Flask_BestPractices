@@ -5,7 +5,7 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
-from flask import request, g, jsonify, abort
+from flask import request
 from app.api import route_api
 
 

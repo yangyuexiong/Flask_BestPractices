@@ -5,8 +5,9 @@
 # @File    : test_celery.py
 # @Software: PyCharm
 
-from tasks.CeleryAsyncTasks.main import add, send_mail
 from time import sleep
+
+from tasks.CeleryAsyncTasks.main import add, send_mail
 
 r = add.delay(10, 20)
 

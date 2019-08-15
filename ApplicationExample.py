@@ -1,7 +1,9 @@
+import os
+
 from flask import Flask as _Flask
 from flask.json import JSONEncoder as _JSONEncoder
 from flask_cors import CORS
-import os
+
 from ExtendRegister.bp_register import register_bp  # 蓝图
 from ExtendRegister.conf_register import register_config  # 配置
 from ExtendRegister.db_register import db  # db

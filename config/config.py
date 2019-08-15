@@ -7,8 +7,9 @@
 
 
 from datetime import timedelta
-import redis
 import os
+
+import redis
 
 
 def app_conf():

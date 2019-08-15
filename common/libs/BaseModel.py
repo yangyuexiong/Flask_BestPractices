@@ -5,8 +5,9 @@
 # @File    : BaseModel.py
 # @Software: PyCharm
 
-from ExtendRegister.db_register import db
 from datetime import datetime
+
+from ExtendRegister.db_register import db
 
 
 class BaseModel(db.Model):
