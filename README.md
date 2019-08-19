@@ -7,7 +7,7 @@
 
 后续会使用此结构加上Vue与React实现一套前后分离的博客前后台。
 
-可能会再出Tornado，Sanic，Django等最佳实践。
+可能会再出Tornado，Sanic等最佳实践。
 
 点个星可好！
 
