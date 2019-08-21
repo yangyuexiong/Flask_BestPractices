@@ -16,6 +16,7 @@ from ExtendRegister.excep_register import *  # 导入异常处理器
 
 app = create_app()
 
+print(1232132132)
 
 def run_tips(x):
     msg = ''
