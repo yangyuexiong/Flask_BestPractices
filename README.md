@@ -14,7 +14,7 @@
 发现问题 issues
 
 Flask官方文档
-http://flask.pocoo.org/docs/1.0/
+https://flask.palletsprojects.com/
 
 Flask中文文档
 https://dormousehole.readthedocs.io/en/latest/
