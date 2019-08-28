@@ -1,6 +1,7 @@
 # Flask_BestPractices
 ## <Flask最佳实践>
-##### 包含前后端分离/与不分离模版渲染
+##### 这是一个项目结构,可以直接使用并开始编写业务逻辑
+##### 包含前后端分离/与不分离jinja2模版渲染
 
 
 ---------->>>>>>持续更新<<<<<<----------
@@ -188,7 +189,7 @@ Flask_BestPractices
 
         打开文件找到 .bash_profile文件(如果没看到这个文件 按: shift按键+command按键+ . 按键。就会显示隐藏文件因为隐藏文件一般不显示/需要使其隐藏 再按一次 shift按键+command按键+ . 按键)
 
-        或者可以在终端键入: vim ~/.bash_profile 添加完 保存。键入:sourec ~/.bash_profile 生效配置文件。
+        或者可以在终端键入: vim ~/.bash_profile 添加完 保存。键入:source ~/.bash_profile 生效配置文件。
 
         如果想切换生产环境则修改配置环境即可。
 
@@ -198,7 +199,7 @@ Flask_BestPractices
 
         ### Linux系统(一般使用为生产环境,所有配置为生产的变量:production)
         
-        与MacOS系统类似只是文件名称有些区别: vim ~/.bashrc 添加完 保存。键入:sourec ~/.bashrc 生效配置文件。
+        与MacOS系统类似只是文件名称有些区别: vim ~/.bashrc 添加完 保存。键入:source ~/.bashrc 生效配置文件。
 
         ![image](images/p6.png)
 
