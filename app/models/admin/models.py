@@ -37,19 +37,20 @@ cms_role_user = db.Table(
     # 类型
     # 外键:cms_role.id,
     # 设置为主键
-    db.Column('cms_role_id', db.Integer, db.ForeignKey('cms_role.id'), primary_key=True),
-    db.Column('cms_user_id', db.Integer, db.ForeignKey('cms_user.id'), primary_key=True)
+    db.Column('cms_role_id', db.Integer, db.ForeignKey('cms_role.id'), primary_key=True, comment='权限id'),
+    db.Column('cms_user_id', db.Integer, db.ForeignKey('cms_user.id'), primary_key=True, comment='用户id'),
+    comment='用户_角色_中间表'
 )
 
 
 # CMS角色
 class CMSRole(BaseModel):
     __tablename__ = 'cms_role'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(db.String(50), nullable=False)
-    desc = db.Column(db.String(200), nullable=True)
+    __table_args__ = {'comment': '权限角色表'}
+    name = db.Column(db.String(50), nullable=False, comment='权限名称')
+    desc = db.Column(db.String(200), nullable=True, comment='权限描述')
     # create_time = db.Column(db.DateTime, default=datetime.now)
-    permissions = db.Column(db.Integer, default=CMSPersmission.VISITOR)
+    permissions = db.Column(db.Integer, default=CMSPersmission.VISITOR, comment='权限等级')
 
     # 引用模型:CMSUser
     # 中间表:cms_role_user
@@ -60,9 +61,9 @@ class CMSRole(BaseModel):
 # CMS用户
 class CMSUser(BaseModel):
     __tablename__ = 'cms_user'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(50), nullable=False)
-    _password = db.Column(db.String(100), nullable=False)
+    __table_args__ = {'comment': '用户表'}
+    username = db.Column(db.String(50), nullable=False, comment='账号')
+    _password = db.Column(db.String(100), nullable=False, comment='密码')
 
     # join_time = db.Column(db.DateTime, server_default=db.func.now())
 
@@ -106,7 +107,4 @@ class CMSUser(BaseModel):
         return self.has_permission(CMSPersmission.ALL_PERMISSION)
 
     def __repr__(self):
-        return '<admin: 用户名 %s 密码 %s  >' % (
-            self.username,
-            self.password,
-        )
+        return 'admin模型对象-> 用户名:{} 密码:{}'.format(self.username, self.password)
