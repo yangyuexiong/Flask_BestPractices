@@ -7,6 +7,7 @@
 
 from flask import Blueprint
 from flask_restful import Api
+
 from .demo.demo import Index, DemoApi, HttpExceptionTest, CustomExceptionTest, BaseExceptionTest
 
 route_api = Blueprint('api', __name__)

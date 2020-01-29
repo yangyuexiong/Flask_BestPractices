@@ -41,6 +41,14 @@ def t_exc():
     return '1'
 
 
+# 静态文件处理/访问方式
+# http://0.0.0.0:9999/static/flask.jpg
+# http://0.0.0.0:9999/static/images/flask.jpg
+@route_admin.route('/<path:path>/images')
+def static_file(path):
+    return route_module_01.send_static_file(path)
+
+
 """
 路由:route_demo 与 如下 完全一样
 

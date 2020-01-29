@@ -5,12 +5,13 @@
 # @File    : manage.py
 # @Software: PyCharm
 
-from ApplicationExample import create_app
-from flask_script import Manager, Server, Command
-from flask_migrate import Migrate, MigrateCommand
-from ExtendRegister.db_register import db
 import os
 
+from flask_script import Manager, Server, Command
+from flask_migrate import Migrate, MigrateCommand
+
+from ApplicationExample import create_app
+from ExtendRegister.db_register import db
 from app.models.admin import models as cms_models
 
 app = create_app()  # 实例

@@ -5,9 +5,9 @@
 # @File    : config.py
 # @Software: PyCharm
 
+import os
 
 from datetime import timedelta
-import os
 
 import redis
 
