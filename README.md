@@ -10,9 +10,11 @@
 
 可能会再出Tornado，Sanic等最佳实践。
 
-点个星可好！
+大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
 
-发现问题 issues
+如有疑问 -> QQ or Wechat : 417993207
+
+点个star吧！
 
 Flask官方文档
 https://flask.palletsprojects.com/

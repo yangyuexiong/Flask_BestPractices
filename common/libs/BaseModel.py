@@ -30,11 +30,20 @@ class BaseModel(db.Model):
     _update_timestamp = db.Column('update_timestamp', db.String(128), server_default='',
                                   onupdate=int(datetime.now().timestamp()), comment='更新时间(时间戳)')
 
+    def keys(self):
+        """
+        返回所有字段对象
+        :return:
+        """
+        return self.__table__.columns
+
     def __getitem__(self, item):
         return getattr(self, item)
 
     def to_json(self):
-        dict = self.__dict__
+
+        """
+        旧方法
         if "_sa_instance_state" in dict:
             del dict["_sa_instance_state"]
             del dict["_update_timestamp"]
@@ -42,11 +51,25 @@ class BaseModel(db.Model):
             del dict["_create_time"]
             del dict["_update_time"]
             del dict["_status"]
-        return dict
+            if str(self.__table__) == 'cms_user':
+                del dict["_password"]
+        """
+
+        d = {}
+        dict = self.__dict__
+        [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
+        print(d)
+        del d["update_timestamp"]
+        del d["create_timestamp"]
+        del d["create_time"]
+        del d["update_time"]
+        del d["status"]
+        return d
 
     def update(self, **kwargs):
-        # print(self)
+        # print('self->', self)
         for attr, value in kwargs.items():
+            # print(attr, value)
             try:  # 部分属性无法setattr
                 setattr(self, attr, value)
             except BaseException as e:
