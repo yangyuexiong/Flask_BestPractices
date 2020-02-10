@@ -46,7 +46,7 @@ def t_exc():
 # http://0.0.0.0:9999/static/images/flask.jpg
 @route_admin.route('/<path:path>/images')
 def static_file(path):
-    return route_module_01.send_static_file(path)
+    return route_admin.send_static_file(path)
 
 
 """
