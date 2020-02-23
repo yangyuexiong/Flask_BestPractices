@@ -71,7 +71,11 @@ class BaseModel(db.Model):
         for attr, value in kwargs.items():
             # print(attr, value)
             try:  # 部分属性无法setattr
-                setattr(self, attr, value)
+                setattr(self, attr, str(value) if isinstance(value, list) or isinstance(value, dict) else value)
             except BaseException as e:
                 pass
         return self
+
+    def delete_obj(self):
+        self._status = 2
+        db.session.commit()

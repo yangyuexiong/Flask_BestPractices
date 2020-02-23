@@ -75,6 +75,7 @@ if __name__ == '__main__':
     flask_env = os.environ.get('FLASK_ENV')
     startup_mode = os.environ.get('STARTUP_MODE')
     print('<', '-' * 66, '>')
+    print('时间:{}'.format(datetime.datetime.now()))
     print('操作系统:{}'.format(platform.system()))
     print('项目路径:{}'.format(os.getcwd()))
     print('当前环境:{}'.format(flask_env))

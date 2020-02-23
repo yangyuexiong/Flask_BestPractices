@@ -16,6 +16,8 @@
 
 点个star吧！
 
+Github访问不流畅可以前往->码云 https://gitee.com/yangyuexiong/Flask_BestPractices
+
 Flask官方文档
 https://flask.palletsprojects.com/
 
