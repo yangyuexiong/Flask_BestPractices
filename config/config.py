@@ -6,10 +6,41 @@
 # @Software: PyCharm
 
 import os
-
+import platform
+import configparser
 from datetime import timedelta
 
 import redis
+
+
+def get_config():
+    """获取配置文件"""
+    conf = configparser.ConfigParser()
+    flask_env = os.environ.get('FLASK_ENV')
+
+    if flask_env == 'production':
+        """
+        区分本地配置与服务器配置
+        区分本地Windows/Mac操作系统
+        """
+
+        config_path = os.getcwd() + '/pro.ini'
+        print('Linux配置文件:{}'.format(config_path))
+        conf.read(config_path)
+        return conf
+
+    else:
+        if platform.system() == 'Windows':
+            config_path = os.getcwd() + '\\dev.ini'
+            print('Windows配置文件:{}'.format(config_path))
+            conf.read(config_path)
+            return conf
+
+        else:
+            config_path = os.getcwd() + '/dev.ini'
+            print('Linux或Darwin配置文件:{}'.format(config_path))
+            conf.read(config_path)
+            return conf
 
 
 def app_conf():
@@ -117,13 +148,58 @@ class ProductionConfig(BaseConfig):
     R = redis.Redis(connection_pool=POOL)
 
 
+class NewConfig(BaseConfig):
+    """区分配置文件"""
+
+    conf = get_config()  # 根据环境变量获取对应的配置文件
+
+    # base
+    SECRET_KEY = conf.get('base', 'SECRET_KEY')  # session加密
+    PERMANENT_SESSION_LIFETIME = timedelta(days=30)  # 设置session过期时间
+    DEBUG = conf.getboolean('base', 'DEBUG')
+    RUN_HOST = conf.get('base', 'RUN_HOST')
+    RUN_PORT = conf.getint('base', 'RUN_PORT')
+
+    # mysql
+    DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
+        conf.get('mysql', 'USERNAME'),
+        conf.get('mysql', 'PASSWORD'),
+        conf.get('mysql', 'HOSTNAME'),
+        conf.getint('mysql', 'PORT'),
+        conf.get('mysql', 'DATABASE')
+    )
+    SQLALCHEMY_DATABASE_URI = DB_URI
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+
+    # redis
+    redis_obj = {
+        'host': conf.get('redis', 'REDIS_HOST'),
+        'port': conf.get('redis', 'REDIS_PORT'),
+        'password': conf.get('redis', 'REDIS_PWD'),
+        'decode_responses': conf.getboolean('redis', 'DECODE_RESPONSES'),
+        'db': conf.getint('redis', 'REDIS_DB')
+    }
+    POOL = redis.ConnectionPool(**redis_obj)
+    R = redis.Redis(connection_pool=POOL)
+
+    @staticmethod
+    def init_app(app):
+        pass
+
+
 config_obj = {
     'production': ProductionConfig,
     'development': DevelopmentConfig,
-    'default': DevelopmentConfig
+    'default': DevelopmentConfig,
+    'new': NewConfig
 }
 
 if __name__ == '__main__':
     print(config_obj['default'].DB_URI)
     cof = app_conf()
     print(cof)
+
+    print(config_obj['default'].DB_URI)
+    print(config_obj['new'].DB_URI)
+    print(config_obj['default'].R)
+    print(config_obj['new'].R)

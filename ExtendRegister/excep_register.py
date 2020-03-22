@@ -5,9 +5,10 @@
 # @File    : excep_register.py
 # @Software: PyCharm
 
-import traceback
-import datetime
 import os
+import datetime
+import platform
+import traceback
 
 from flask import request
 from werkzeug.exceptions import HTTPException
@@ -19,7 +20,10 @@ from config.config import config_obj
 
 
 def tb(excep):
-    logs_path = os.getcwd() + '/logs/tb.log'
+    if platform.system() == 'Windows':
+        logs_path = os.getcwd() + '\\logs\\tb.log'
+    else:
+        logs_path = os.getcwd() + '/logs/tb.log'
     # print(logs_path)
     print(os.environ.get('FLASK_ENV'))
     if not os.environ.get('FLASK_ENV'):
@@ -66,3 +70,8 @@ def errors(e):
         print('-----Exception-----')
         tb('-----Exception-----')
         return api_result(code=500, message='Exception:【{}】'.format(str(e)), data=request.method + ' ' + request.path)
+
+
+if __name__ == '__main__':
+    logs_path = os.getcwd() + '/logs/tb.log'
+    print(logs_path)
