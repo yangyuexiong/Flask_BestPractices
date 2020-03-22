@@ -12,9 +12,9 @@
 
 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
 
-如有疑问 -> QQ or Wechat : 417993207
+如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
 
-点个star吧！
+点个star吧！(你的star是我跟新的动力哟)
 
 Github访问不流畅可以前往->码云 https://gitee.com/yangyuexiong/Flask_BestPractices
 
