@@ -18,4 +18,5 @@ def register_config(app):
     config_obj[app_conf()].init_app(app)
 
     # 新注册配置文件
+    # app.config.from_object(config_obj['new'])  # 环境配置
     # config_obj['new'].init_app(app)
