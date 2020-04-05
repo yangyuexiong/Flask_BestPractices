@@ -17,30 +17,28 @@ def get_config():
     """获取配置文件"""
     conf = configparser.ConfigParser()
     flask_env = os.environ.get('FLASK_ENV')
+    base_path = os.getcwd().split('Flask_BestPractices')[0] + 'Flask_BestPractices/config/'
 
     if flask_env == 'production':
         """
         区分本地配置与服务器配置
         区分本地Windows/Mac操作系统
         """
-
-        config_path = os.getcwd() + '/pro.ini'
+        config_path = base_path + 'pro.ini'
         print('Linux配置文件:{}'.format(config_path))
         conf.read(config_path)
         return conf
 
+    if platform.system() == 'Windows':
+        config_path = base_path + 'dev.ini'
+        print('Windows配置文件:{}'.format(config_path))
+        conf.read(config_path)
+        return conf
     else:
-        if platform.system() == 'Windows':
-            config_path = os.getcwd() + '\\dev.ini'
-            print('Windows配置文件:{}'.format(config_path))
-            conf.read(config_path)
-            return conf
-
-        else:
-            config_path = os.getcwd() + '/dev.ini'
-            print('Linux或Darwin配置文件:{}'.format(config_path))
-            conf.read(config_path)
-            return conf
+        config_path = base_path + 'dev.ini'
+        print('Linux或Darwin配置文件:{}'.format(config_path))
+        conf.read(config_path)
+        return conf
 
 
 def app_conf():
@@ -181,10 +179,6 @@ class NewConfig(BaseConfig):
     }
     POOL = redis.ConnectionPool(**redis_obj)
     R = redis.Redis(connection_pool=POOL)
-
-    @staticmethod
-    def init_app(app):
-        pass
 
 
 config_obj = {
