@@ -21,8 +21,8 @@ def run_tips(x):
     msg = ''
     if x == 'FLASK_ENV':
         msg = '\n\nTips:未找到Flask环境变量 "FLASK_ENV" 请配置!如需了解配置可查阅:https://github.com/yangyuexiong/Flask_BestPractices\n\n'
-    if x == 'STARTUP_MODE':
-        msg = '\n\nTips:未找到启动项目方式变量 "STARTUP_MODE" 请配置!如需了解配置可查阅:https://github.com/yangyuexiong/Flask_BestPractices\n\n'
+    # if x == 'STARTUP_MODE':
+    #     msg = '\n\nTips:未找到启动项目方式变量 "STARTUP_MODE" 请配置!如需了解配置可查阅:https://github.com/yangyuexiong/Flask_BestPractices\n\n'
 
     print("\033[31m{}\033[0m".format(msg))
 
@@ -43,18 +43,18 @@ def main():
     if platform.system() == 'Linux':
         app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
 
-    check_env('STARTUP_MODE')
-
-    # 终端
-    if os.environ.get('STARTUP_MODE') == 'ter':
-        app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
-
-    # Pycharm
-    if os.environ.get('STARTUP_MODE') == 'pyc':
-        app.run(debug=True, host='0.0.0.0', port=9999)
+    # check_env('STARTUP_MODE')
+    #
+    # # 终端
+    # if os.environ.get('STARTUP_MODE') == 'ter':
+    #     app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
+    #
+    # # Pycharm
+    # if os.environ.get('STARTUP_MODE') == 'pyc':
+    #     app.run(debug=True, host='0.0.0.0', port=9999)
 
     else:
-        pass
+        app.run(debug=True, host='0.0.0.0', port=9999)
 
 
 if __name__ == '__main__':

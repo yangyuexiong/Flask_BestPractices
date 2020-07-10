@@ -132,80 +132,94 @@ Flask_BestPractices
 └── test_run.py  ------------------------------->调试启动文件(可以忽略或者删除)
 
 ```
-### 【使用】
-1. #### 环境配置
+## 安装
 
-    * 安装Python3.7+
-    * 安装pip3
-    * 安装pipenv
-        ```
-        pip3 install pipenv
-        ```
-    * 进入根目录安装项目环境(即:所有使用到的python库)
-        ```
-        pipenv install
-        ```
-    * 查看虚拟环境路径
-        ```
-        pipenv shell
-        pipenv --venv
-        ```
+* Python3.7+
+* pip3
+* pipenv
 
-    * pycharm配置pipenv环境
+    ```
+    pip3 install pipenv
+    ```
 
-        pycharm添加
+## 配置虚拟环境
 
-        ![image](images/p1.png)
-        
-        ![image](images/p2.png)
+* 进入项目根目录
+    ```
+    cd /Flask_BestPractices
+    ```
+
+* 修改pipenv的pip安装源(科学上网(翻墙)的同学可以忽略)
+    ```
+    Pipfile文件修改如下:
+
+    # 国内pip安装源(不能翻墙的同学修改如下,在可以翻墙的情况下依旧国内pip源比较快)
+    url = "https://mirrors.aliyun.com/pypi/simple"
+
+    # 国外pip安装源(可以翻墙)
+    url = "https://pypi.org/simple"
+    ```
+    
+* 安装虚拟环境与依赖的包
+    ```
+    pipenv install
+    ```
+
+* 进入虚拟环境
+    ```
+    pipenv shell
+    ```
+
+* 查看虚拟环境路径
+    ```
+    pipenv --venv
+    ```
+    ![image](images/f1.png)
+
+* Pycharm 配置 pipenv虚拟环境(不使用Pycharm的同学可以忽略)
+
+    ![image](images/f2.png)
+    ![image](images/f3.png)
+
+* 配置Pycharm的Flask变量(因为Pycharm运行项目不会读取系统变量所以要配置在Pycharm中)
+
+    ![image](images/f4.png)
+    ![image](images/f5.png)
+
+* 配置Flask系统变量(原本操作系统中并没有 FLASK_ENV 变量,所以Flask启动的时候默认为production,为了区分开发/生产需要通过以下方式配置)(以下配置只能在终端启动项目生效在Pycharm不生效)
+
+* Windows系统(一般用于开发环境,所有配置为开发的变量:development)
+
+    ![image](images/f6.png)
+    
+* MacOS系统(同样也配置为开发环境,所有配置为开发的变量:development)
+    ```
+    vim ~/.bash_profile
+    ```
+
+    ![image](images/f7.png)
+
+    ```
+    打开文件找到(如果没看到这个文件 按: shift按键+command按键+ . 按键。就会显示隐藏文件因为隐藏文件一般不显示/需要使其隐藏,再按一次 shift按键+command按键+ . 按键)
+    ```
+    
+    ![image](images/f8.png)
+
+    ```
+    生效配置文件
+    source ~/.bash_profile
+    ```
+
+* Linux系统(一般使用为生产环境,所有配置为生产的变量:production)
+    ```
+    vim ~/.bashrc
+    ```
+    ![image](images/f9.png)
+    ```
+    source ~/.bashrc
+    ```
 
 
-    * 配置Pycharm的Flask变量(因为Pycharm运行项目不会读取系统变量所以要配置在Pycharm中)
-
-        ![image](images/p7.png)
-        ![image](images/p8.png)
-        ![image](images/p9.png)
-
-        这样Pycharm运行就有了虚拟环境变量。
-
-    * 配置Flask系统变量(原本操作系统中是没有FLASK_ENV变量的所以Flask启动的时候默认为production,为了区分开发/生产需要通过以下方式配置)(以下配置只能在终端启动项目生效在Pycharm不生效)
-        
-        方法一(这种方法在每次启动项目前都必须设置一次,因为不会保存在操作系统中):
-            在终端键入(属于临时变量使用之后就会失效,建议用于调试临时覆盖原有变量)
-
-            ```
-            开发环境:
-                export FLASK_ENV=development
-            生成环境:                
-                export FLASK_ENV=production
-            ```
-        方法二(直接把变量设置在操作系统中,建议使用该方法设置变量):
-
-        #### Windows系统(一般用于开发环境,所有配置为开发的变量:development):        
-
-        ![image](images/p3.png)
-
-        变量名填入:FLASK_ENV
-
-        变量值填入:development
-
-        #### MacOS系统(同样也配置为开发环境,所有配置为开发的变量:development):
-
-        打开文件找到 .bash_profile文件(如果没看到这个文件 按: shift按键+command按键+ . 按键。就会显示隐藏文件因为隐藏文件一般不显示/需要使其隐藏 再按一次 shift按键+command按键+ . 按键)
-
-        或者可以在终端键入: vim ~/.bash_profile 添加完 保存。键入:source ~/.bash_profile 生效配置文件。
-
-        如果想切换生产环境则修改配置环境即可。
-
-        ![image](images/p4.png)
-
-        ![image](images/p5.png)
-
-        ### Linux系统(一般使用为生产环境,所有配置为生产的变量:production)
-        
-        与MacOS系统类似只是文件名称有些区别: vim ~/.bashrc 添加完 保存。键入:source ~/.bashrc 生效配置文件。
-
-        ![image](images/p6.png)
 
 2. #### 配置启动变量与启动项目:
 
