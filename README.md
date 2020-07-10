@@ -219,169 +219,151 @@ Flask_BestPractices
     source ~/.bashrc
     ```
 
+## 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
+
+* api:
+    ```
+    http://0.0.0.0:9999/api/
+    ```
+* cms:
+    ```
+    http://0.0.0.0:9999/cms/
+    ```
+* cms子模块:
+    ```
+    http://0.0.0.0:9999/cms/test1/
+    http://0.0.0.0:9999/cms/test2/
+    http://0.0.0.0:9999/cms/test3/
+    ```
+* 其他业务模块:
+    ```
+    http://0.0.0.0:9999/m1/
+    http://0.0.0.0:9999/m2/
+    http://0.0.0.0:9999/m3/
+
+    渲染HTML例子
+    http://0.0.0.0:9999/m1/index/
+    http://0.0.0.0:9999/m2/index/
+    http://0.0.0.0:9999/m3/index/
+    ```
+
+## 修改config.py文件
+
+* 数据库部分(先创建好数据库)
+* 其他配置根据需要修改/增加
 
 
-2. #### 配置启动变量与启动项目:
+## 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell) 
 
-    ide配置(Windows与MacOs一样):
+* manage.py文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py文件)
 
-    ![image](images/p10.png)
+    ```
+    查看所有方法:
+    pipenv run python3 manage.py
+    ```
 
-    * Pycharm启动项目(因为已经配置好了pipenv与FLASK_ENV)所以可以直接运行run.py文件
+* 首次!首次!首次! 创建表时执行(注意需要在虚拟环境中执行:即 pipenv shell)
 
-    终端运行启动变量配置:
-    * Windows添加变量
+    ```
+    pipenv run python3 manage.py orm
+    ```
     
-    ![image](images/p3.png)
+* 每次！每次！每次！新增modle表后在manage.py导入后执行(区别在于没有初始化:python3 manage.py db init)
 
-    变量名填入:STARTUP_MODE
+    ```
+    pipenv run python3 manage.py table
+    ```
 
-    变量值填入:ter
+## 业务实现
 
-    * MacOs
+* 前台业务 
+    ```
+    app/api/下根据需要创建模块在<Flask_BestPractices/app/api/__init__.py>中注册url即可。
 
-    与上面一样在 vim ~/.bashrc 中加入变量
-
-    ![image](images/p11.png)
-
-    * Linux(不需要添加,因为在代码中已经处理好了)
-
-    * 在终端启动,进入到项目根目录
-        ```
-        进入虚拟环境:
-            pipenv shell
-        启动:
-            python3 run.py
-        ```
-        
-    以下分别是PyCharm与终端的启动
-    
-    ![image](images/p12.png)
-
-3. #### 访问例子(注意在url末尾要加上'/'否则会出现308报错,或者在定义url时不在末尾加上'/')
-
-    * api:
-        ```
-        http://0.0.0.0:9999/api/
-        ```
-    * cms:
-        ```
-        http://0.0.0.0:9999/cms/
-        ```
-    * cms子模块:
-        ```
-        http://0.0.0.0:9999/cms/test1/
-        http://0.0.0.0:9999/cms/test2/
-        http://0.0.0.0:9999/cms/test3/
-        ```
-    * 其他业务模块:
-        ```
-        http://0.0.0.0:9999/m1/
-        http://0.0.0.0:9999/m2/
-        http://0.0.0.0:9999/m3/
-
-        渲染HTML例子
-        http://0.0.0.0:9999/m1/index/
-        http://0.0.0.0:9999/m2/index/
-        http://0.0.0.0:9999/m3/index/
-        ```
-
-4. #### 修改config.py文件
-    * 数据库部分(先创建好数据库)
-    * 其他配置根据需要修改/增加
-
-
-5. #### 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell) 
-
-    * manage.py文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py文件)
-        ```
-        查看所有方法:
-        pipenv run python3 manage.py
-        ```
-
-    * 首次!首次!首次! 创建表时执行(注意需要在虚拟环境中执行:即 pipenv shell)
-
-        ```
-        pipenv run python3 manage.py orm
-        ```
-    * 每次！每次！每次！新增modle表后在manage.py导入后执行(区别在于没有初始化:python3 manage.py db init)
-        ```
-        pipenv run python3 manage.py table
-        ```
-
-6. #### 业务实现
-    * 前台业务 app/api/下根据需要创建模块在<Flask_BestPractices/app/api/__init__.py>中注册url即可。
     例子: /app/api/__init__.py
-    * 后台业务 app/controllers/cms下根据需要创建模块在<Flask_BestPractices/app/controllers/cms/cms_bp.py>注册url即可。
-    * 其他分类 app/controllers下根据需要创建模块在<Flask_BestPractices/ExtendRegister/bp_register.py>中注册。
-    例子: /app/controllers/cms/cms_bp.py
+    ```
 
+* 后台业务 
+    ```
+    app/controllers/cms下根据需要创建模块在<Flask_BestPractices/app/controllers/cms/cms_bp.py>注册url即可。
+    ```
 
-7. #### 钩子函数(拦截器)使用:
-    * 拿其中一个举例:<Flask_BestPractices/common/interceptors/ApiHook.py>业务逻辑根据自己需要编写
+* 其他分类 
+    ```
+    app/controllers下根据需要创建模块在<Flask_BestPractices/ExtendRegister/bp_register.py>中注册。
     
-        ```
-        from flask import request, g, jsonify, abort
-        from app.api import route_api
+    例子: /app/controllers/cms/cms_bp.py
+    ```
 
-        @route_api.before_request
-        def before_request_api():
-            print('api before_request')
-            path = request.path
-            print(path)
-            if '/api' in path:
-                print('访问api')
-                return 
-        ```
 
-8. #### 自定义异常添加使用:
-    * 在<Flask_BestPractices/common/libs/customException.py>添加
-        ```
-            1.在文件中添加元组变量 例如
-                ServerError = (500, '服务器内部异常')
+## 钩子函数(拦截器)使用:
 
-            2.在下方ab_code方法中的字典 C 中添加key:value 例如
-                def ab_code(data):
-                    C = {
-                        400: Bad_Request,
-                        401: NOT_AUTHORIZED,
-                        403: FORBIDDEN,
-                        500: ServerError,
-                        666: not_token
-                    }
-                    code = C.get(data)[0]
-                    msg = C.get(data)[1]
-                    raise CustomException(code=code, msg=msg)
+* 拿其中一个举例:<Flask_BestPractices/common/interceptors/ApiHook.py>业务逻辑根据自己需要编写
 
-            3.调用非常的简单
-                例子文件
-                    <Flask_BestPractices/app/api/demo/demo.py>中的
-                    ```
-                    class CustomExceptionTest(Resource):
+    ```
+    from flask import request, g, jsonify, abort
+    from app.api import route_api
 
-                        def get(self):
-                            """
-                            测试自定义异常
+    @route_api.before_request
+    def before_request_api():
+        print('api before_request')
+        path = request.path
+        print(path)
+        if '/api' in path:
+            print('访问api')
+            return 
+    ```
 
-                            :return:
-                            """
-                            ab_code(333)
-                    ```
-                例子文件
-                    <Flask_BestPractices/app/controllers/cms/cms_bp.py>中的
-                    ```
-                    @route_admin.route('/test_custom_exception', methods=["GET", "POST"])
-                    def t_custom_exc():
-                        """测试自定义异常"""
-                        ab_code(666)
-                    ```
-                使用:
-                    from common.libs.customException import ab_code
+## 自定义异常添加使用:
+
+* 在<Flask_BestPractices/common/libs/customException.py>添加
+    ```
+        1.在文件中添加元组变量 例如
+            ServerError = (500, '服务器内部异常')
+
+        2.在下方ab_code方法中的字典 C 中添加key:value 例如
+            def ab_code(data):
+                C = {
+                    400: Bad_Request,
+                    401: NOT_AUTHORIZED,
+                    403: FORBIDDEN,
+                    500: ServerError,
+                    666: not_token
+                }
+                code = C.get(data)[0]
+                msg = C.get(data)[1]
+                raise CustomException(code=code, msg=msg)
+
+        3.调用非常的简单
+            例子文件
+                <Flask_BestPractices/app/api/demo/demo.py>中的
+                ```
+                class CustomExceptionTest(Resource):
+
+                    def get(self):
+                        """
+                        测试自定义异常
+
+                        :return:
+                        """
+                        ab_code(333)
+                ```
+            例子文件
+                <Flask_BestPractices/app/controllers/cms/cms_bp.py>中的
+                ```
+                @route_admin.route('/test_custom_exception', methods=["GET", "POST"])
+                def t_custom_exc():
+                    """测试自定义异常"""
                     ab_code(666)
-            
-        ```
-9. #### 任务
-    * 异步任务
+                ```
+            使用:
+                from common.libs.customException import ab_code
+                ab_code(666)
+        
+    ```
+## 任务
+
+* 异步任务
     ```
     注意:配置好redis,如果使用MQ等其他需要对应修改配置后在启动
     启动celery例子(必须要在/CeleryAsyncTasks目录下启动以及配置好redis):
@@ -392,7 +374,7 @@ Flask_BestPractices
         调用任务例子: /test/test_celery.py
     ```
 
-    * 定时任务
+* 定时任务
     ```
     使用例子:
         /tasks/APSchedulerTasks/clear_log.py文件中包含3钟常用方法,以清除日子为例子
@@ -400,12 +382,14 @@ Flask_BestPractices
         /APSchedulerTasks目录下直接执行clear_log.py文件
     ```
 
-10. #### 部署(2019-06-18更新):
-    * 我掘金的一篇文章
-    
-        https://juejin.im/post/5d08574351882563f967d5b9
+## 部署(2019-06-18更新):
+* 我掘金的一篇文章
+    ```
+    https://juejin.im/post/5d08574351882563f967d5b9
+    ```
 
-11. #### 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
-12. #### 快试试快速实现你业务需求吧！！！嘻嘻！！！
+* 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
+
+* 快试试快速实现你业务需求吧！！！嘻嘻！！！
 
