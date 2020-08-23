@@ -54,7 +54,8 @@ def main():
     #     app.run(debug=True, host='0.0.0.0', port=9999)
 
     else:
-        app.run(debug=True, host='0.0.0.0', port=9999)
+        # app.run(debug=True, host='0.0.0.0', port=9999)
+        app.run(debug=app.config.get('DEBUG'), host=app.config.get('RUN_HOST'), port=app.config.get('RUN_PORT'))
 
 
 if __name__ == '__main__':

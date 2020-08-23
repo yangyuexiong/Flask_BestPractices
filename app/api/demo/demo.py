@@ -9,7 +9,7 @@ import requests
 
 from flask_restful import Resource
 
-from common.libs.customException import ab_code
+from common.libs.customException import ab_code, ab_code_2
 
 
 class Index(Resource):
@@ -66,7 +66,11 @@ class CustomExceptionTest(Resource):
 
         :return:
         """
-        ab_code(333)
+        # MethodView 自定义异常
+        # ab_code(333)
+
+        # flask_restful 自定义异常
+        ab_code_2(333)
 
 
 class BaseExceptionTest(Resource):

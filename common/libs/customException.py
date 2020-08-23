@@ -8,6 +8,9 @@
 
 from werkzeug.exceptions import HTTPException
 
+from flask import jsonify, abort, request
+import flask_restful
+
 # Common CustomException
 EX_TEST = (333, '测试自定义异常')
 Bad_Request = (400, '参数类型错误')
@@ -46,6 +49,9 @@ class CustomException(HTTPException):
 
 
 def ab_code(data):
+    """
+    MethodView 自定义异常
+    """
     C = {
 
         400: Bad_Request,
@@ -60,3 +66,36 @@ def ab_code(data):
     msg = C.get(data)[1]
     print(msg)
     raise CustomException(code=code, msg=msg)
+
+
+def ab_code_restful(data):
+    """
+    flask_restful 自定义异常
+    """
+    code = data[0]
+    msg = data[1]
+    req = request.method + ' ' + request.path
+    r = {
+        "code": code,
+        "msg": msg,
+        "request": req
+    }
+    return jsonify(r)
+
+
+# 修改flask_restful.abort
+def custom_abord(http_status_code, *args, **kwargs):
+    if http_status_code == 400:
+        abort(ab_code_restful(ICU))
+    if http_status_code == 333:
+        abort(ab_code_restful(EX_TEST))
+    return abort(http_status_code)
+
+
+# 简化 flask_restful.abort
+def ab_code_2(code):
+    """
+    flask_restful 自定义异常
+    """
+    flask_restful.abort = custom_abord
+    flask_restful.abort(code)
