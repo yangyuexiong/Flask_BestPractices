@@ -64,6 +64,10 @@ class BaseModel(db.Model):
         del d["create_time"]
         del d["update_time"]
         del d["status"]
+        d.update({
+            'create_time': dict.get('_create_time'),
+            'create_timestamp': dict.get('_create_timestamp')
+        })
         return d
 
     def update(self, **kwargs):
