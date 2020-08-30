@@ -5,6 +5,7 @@
 # @File    : BaseModel.py
 # @Software: PyCharm
 
+import json
 from datetime import datetime
 
 from ExtendRegister.db_register import db
@@ -65,7 +66,7 @@ class BaseModel(db.Model):
         del d["update_time"]
         del d["status"]
         d.update({
-            'create_time': dict.get('_create_time'),
+            'create_time': dict.get('_create_time').strftime("%Y-%m-%d %H:%S:%M"),
             'create_timestamp': dict.get('_create_timestamp')
         })
         return d
@@ -76,6 +77,7 @@ class BaseModel(db.Model):
             # print(attr, value)
             try:  # 部分属性无法setattr
                 setattr(self, attr, str(value) if isinstance(value, list) or isinstance(value, dict) else value)
+                setattr(self, attr, json.dumps(value) if isinstance(value, dict) else str(value))
             except BaseException as e:
                 pass
         return self
