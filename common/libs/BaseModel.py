@@ -59,16 +59,19 @@ class BaseModel(db.Model):
         d = {}
         dict = self.__dict__
         [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
-        print(d)
+        # print(d)
         del d["update_timestamp"]
         del d["create_timestamp"]
         del d["create_time"]
         del d["update_time"]
         del d["status"]
-        d.update({
-            'create_time': dict.get('_create_time').strftime("%Y-%m-%d %H:%S:%M"),
-            'create_timestamp': dict.get('_create_timestamp')
-        })
+        try:
+            d.update({
+                'create_time': dict.get('_create_time').strftime("%Y-%m-%d %H:%S:%M"),
+                'create_timestamp': dict.get('_create_timestamp')
+            })
+        except BaseException as e:
+            pass
         return d
 
     def update(self, **kwargs):
