@@ -22,14 +22,14 @@ class BaseModel(db.Model):
 
     __abstract__ = True
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, comment='id')
-    _status = db.Column('status', db.Integer, default=1, comment='状态:1正常,2删除')
-    _create_time = db.Column('create_time', db.DateTime, default=datetime.now, comment='创建时间(结构化时间)')
-    _create_timestamp = db.Column('create_timestamp', db.String(128), default=int(datetime.now().timestamp()),
-                                  comment='创建时间(时间戳)')
-    _update_time = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now,
-                             comment='更新时间(结构化时间)')
-    _update_timestamp = db.Column('update_timestamp', db.String(128), server_default='',
-                                  onupdate=int(datetime.now().timestamp()), comment='更新时间(时间戳)')
+    status = db.Column('status', db.Integer, default=1, comment='状态:1正常,2删除')
+    create_time = db.Column('create_time', db.DateTime, default=datetime.now, comment='创建时间(结构化时间)')
+    create_timestamp = db.Column('create_timestamp', db.String(128), default=int(datetime.now().timestamp()),
+                                 comment='创建时间(时间戳)')
+    update_time = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now,
+                            comment='更新时间(结构化时间)')
+    update_timestamp = db.Column('update_timestamp', db.String(128), server_default='',
+                                 onupdate=int(datetime.now().timestamp()), comment='更新时间(时间戳)')
 
     def keys(self):
         """
@@ -60,18 +60,16 @@ class BaseModel(db.Model):
         dict = self.__dict__
         [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
         # print(d)
-        del d["update_timestamp"]
-        del d["create_timestamp"]
-        del d["create_time"]
-        del d["update_time"]
-        del d["status"]
-        try:
-            d.update({
-                'create_time': dict.get('_create_time').strftime("%Y-%m-%d %H:%S:%M"),
-                'create_timestamp': dict.get('_create_timestamp')
-            })
-        except BaseException as e:
-            pass
+
+        d['create_time'] = str(d.get('create_time')) if d.get('create_time') else None
+        d['update_time'] = str(d.get('update_time')) if d.get('update_time') else None
+
+        # del d["update_timestamp"]
+        # del d["create_timestamp"]
+        # del d["create_time"]
+        # del d["update_time"]
+        # del d["status"]
+
         return d
 
     def update(self, **kwargs):
