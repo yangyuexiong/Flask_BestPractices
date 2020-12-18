@@ -75,14 +75,13 @@ class BaseModel(db.Model):
     def update(self, **kwargs):
         # print('self->', self)
         for attr, value in kwargs.items():
-            # print(attr, value)
+            # print(self, attr, type(attr), value, type(value))
             try:  # 部分属性无法setattr
-                setattr(self, attr, str(value) if isinstance(value, list) or isinstance(value, dict) else value)
-                setattr(self, attr, json.dumps(value) if isinstance(value, dict) else str(value))
+                setattr(self, attr, json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else str(value))
             except BaseException as e:
-                pass
+                print('update error {}'.format(str(e)))
         return self
 
     def delete_obj(self):
-        self._status = 2
+        self.status = 2
         db.session.commit()
