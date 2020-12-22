@@ -54,6 +54,23 @@ class Admin(BaseModel):
         result = check_password_hash(self.password, raw_password)
         return result
 
+    def get_role(self):
+        """获取当前用户的所有角色"""
+        roles = self.roles
+        # print(roles)
+        roles_json = [r.to_json() for r in roles]
+        return roles_json
+
+    def get_permission(self):
+        """获取当前用户的所有权限"""
+        roles = self.roles
+        permission_set = []
+        for r in roles:
+            permission_set += r.permission_list
+        # print(list(set(permission_set)))
+        permission_json = [p.to_json() for p in list(set(permission_set))]
+        return permission_json
+
     def __repr__(self):
         return 'Admin 模型对象-> ID:{} 用户名:{}'.format(self.id, self.username)
 
