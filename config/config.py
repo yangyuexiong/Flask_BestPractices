@@ -19,26 +19,24 @@ def get_config():
     flask_env = os.environ.get('FLASK_ENV')
     base_path = os.getcwd().split('Flask_BestPractices')[0] + 'Flask_BestPractices/config/'
 
-    if flask_env == 'production':
-        """
-        区分本地配置与服务器配置
-        区分本地Windows/Mac操作系统
-        """
-        config_path = base_path + 'pro.ini'
-        print('Linux配置文件:{}'.format(config_path))
-        conf.read(config_path)
-        return conf
+    default_env = {
+        'config_path': base_path + 'dev.ini',
+        'msg': '本地配置文件:{}'.format(base_path + 'dev.ini'),
+    }
 
-    if platform.system() == 'Windows':
-        config_path = base_path + 'dev.ini'
-        print('Windows配置文件:{}'.format(config_path))
-        conf.read(config_path)
-        return conf
-    else:
-        config_path = base_path + 'dev.ini'
-        print('Linux或Darwin配置文件:{}'.format(config_path))
-        conf.read(config_path)
-        return conf
+    env_path_dict = {
+        'default': default_env,
+        'production': {
+            'config_path': base_path + 'pro.ini',
+            'msg': 'prod配置文件:{}'.format(base_path + 'pro.ini')
+        },
+    }
+    env_obj = env_path_dict.get(flask_env, default_env)
+    msg = env_obj.get('msg')
+    config_path = env_obj.get('config_path')
+    print(msg)
+    conf.read(config_path)
+    return conf
 
 
 def app_conf():
