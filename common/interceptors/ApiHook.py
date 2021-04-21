@@ -6,11 +6,11 @@
 # @Software: PyCharm
 
 
-from app.api import route_api
+from app.api import restful_api
 from common.libs.tools import print_logs
 
 
-@route_api.before_request
+@restful_api.before_request
 def before_request_api():
     print('=== api_before_request ===')
     print_logs()

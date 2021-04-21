@@ -19,9 +19,6 @@ FORBIDDEN = (403, '无权限')
 ServerError = (500, '服务器内部异常')
 NOT_TOKEN = (666, '没token玩个毛')
 ICU = (996, '没救了')
-KEY_NE = (99999, '小B崽子key都没传够')
-DATA_IS_EXISTENCE = (777, '数据已经存在')
-DATABASE_ERROR = (1066, '数据库异常')
 
 # Api CustomException
 already_regist = (999, '手机号已注册')
@@ -59,7 +56,7 @@ def ab_code(data):
         403: FORBIDDEN,
         500: ServerError,
         666: NOT_TOKEN,
-        333: EX_TEST,
+        333: EX_TEST
     }
     code = C.get(data)[0]
     print(code)

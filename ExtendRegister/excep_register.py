@@ -10,13 +10,13 @@ import traceback
 from flask import request
 from werkzeug.exceptions import HTTPException
 
-from app.api import route_api
+from app.api import restful_api
 from common.libs.customException import CustomException
 from common.libs.api_result import api_result
 from common.libs.tools import print_logs
 
 
-@route_api.app_errorhandler(Exception)
+@restful_api.app_errorhandler(Exception)
 def errors(e):
     print('异常:{}'.format(e))
     print('异常类型:{}'.format(type(e)))
