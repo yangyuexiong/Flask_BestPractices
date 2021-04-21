@@ -5,18 +5,12 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
-from flask import request
 
 from app.api import route_api
+from common.libs.tools import print_logs
 
 
 @route_api.before_request
 def before_request_api():
-    print('api before_request')
-    path = request.path
-    print(path)
-    if request.method == 'OPTIONS':
-        return
-    if '/api' in path:
-        print('访问api')
-        return
+    print('=== api_before_request ===')
+    print_logs()
