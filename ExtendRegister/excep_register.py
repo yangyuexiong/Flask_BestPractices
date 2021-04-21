@@ -5,7 +5,6 @@
 # @File    : excep_register.py
 # @Software: PyCharm
 
-import os
 import traceback
 
 from flask import request
