@@ -2,7 +2,7 @@
 
 ## <Flask 最佳实践>
 
-##### 这是一个项目结构,可以直接使用并开始编写业务逻辑
+##### 这是一个项目结构,可以直接使用并开始编写业务
 
 ##### 包含前后端分离/与不分离 jinja2 模版渲染
 
@@ -10,15 +10,19 @@
 
 后续会使用此结构加上 Vue 与 React 实现一套前后分离的博客前后台。
 
-可能会再出 Tornado，Sanic 等最佳实践。
+可能会再出 Tornado,Sanic,FastApi 等最佳实践。
 
 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
 
 如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
 
-点个 star 吧！(你的 star 是我跟新的动力哟)
+你不点 Star 我更新给谁看?
 
-Github 访问不流畅可以前往->码云 https://gitee.com/yangyuexiong/Flask_BestPractices
+Github:
+https://github.com/yangyuexiong/Flask_BestPractices
+
+码云:
+https://gitee.com/yangyuexiong/Flask_BestPractices
 
 Flask 官方文档
 https://flask.palletsprojects.com/
@@ -122,7 +126,7 @@ Flask_BestPractices
 
 ## 安装
 
-- Python3.7+
+- Python3.7 ～ 3.9
 - pip3
 - pipenv
 
@@ -148,6 +152,10 @@ Flask_BestPractices
 
   # 国外pip安装源(可以翻墙)
   url = "https://pypi.org/simple"
+  
+  # 修改对应的 Python 版本
+  [requires]
+  python_version = "3.9"
   ```
 
 - 安装虚拟环境与依赖的包
