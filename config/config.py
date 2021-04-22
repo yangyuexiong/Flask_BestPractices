@@ -6,7 +6,6 @@
 # @Software: PyCharm
 
 import os
-import platform
 import configparser
 from datetime import timedelta
 
