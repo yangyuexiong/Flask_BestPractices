@@ -5,6 +5,7 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
+from flask import request
 
 from app.api import method_view_api
 from common.libs.tools import print_logs
@@ -12,5 +13,8 @@ from common.libs.tools import print_logs
 
 @method_view_api.before_request
 def before_request_cms():
-    print('cms before_request')
+    print('cms_before_request')
     print_logs()
+    if '/cms' in request.path:
+        print('cms')
+        return

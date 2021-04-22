@@ -5,6 +5,7 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
+from flask import request
 
 from app.api import restful_api
 from common.libs.tools import print_logs
@@ -14,3 +15,6 @@ from common.libs.tools import print_logs
 def before_request_api():
     print('=== api_before_request ===')
     print_logs()
+    if '/api' in request.path:
+        print('访问api')
+        return
