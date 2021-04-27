@@ -14,6 +14,10 @@ class MethodViewDemo(MethodView):
     """
 
     def get(self, page=1, size=10):
+
+        # print(1 / 0)  # 测试内部异常
+        # return ab_code(666)  # 测试自定义异常
+
         return api_result(code=200, message='MethodView get. 参数{},{}'.format(page, size))
 
     def post(self):
