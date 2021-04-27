@@ -291,25 +291,21 @@ Flask_BestPractices
 
   ```python
 
-    # 在文件中添加元组变量 例如
-    ServerError = (500, '服务器内部异常')
-
-    # 在下方ab_code方法中的字典 C 中添加key:value 例如
-    def ab_code(data):
-        C = {
-            400: Bad_Request,
-            401: NOT_AUTHORIZED,
-            403: FORBIDDEN,
-            500: ServerError,
-            666: not_token
-        }
-        code = C.get(data)[0]
-        msg = C.get(data)[1]
-        raise CustomException(code=code, msg=msg)
+    # 在 custom_resp_dict 添加 kay:value
+    custom_resp_dict = {
+        333: '测试自定义异常',
+        400: '参数类型错误',
+        401: '未登录_认证信息失败_令牌过期',
+        403: '无权限',
+        500: '服务器异常',
+        666: 'Token?',
+        996: '没救了'
+    }
 
     # 使用
     # MethodView 使用 ab_code
     # flask_restful 使用 ab_code_2
+  
     from common.libs.customException import ab_code,ab_code_2
 
     class FlaskRestfulCustomException(Resource):
