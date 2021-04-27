@@ -31,6 +31,16 @@ psw2_err = (1004, '2次密码不一致')
 # CMS CustomException
 LOGIN_ERROR = (2001, '登录失败-服务器非常正常-请重试!')
 
+custom_resp_dict = {
+    333: '测试自定义异常',
+    400: '参数类型错误',
+    401: '未登录_认证信息失败_令牌过期',
+    403: '无权限',
+    500: '服务器异常',
+    666: 'Token?',
+    996: '没救了'
+}
+
 
 class CustomException(HTTPException):
     code = None
@@ -49,19 +59,9 @@ def ab_code(data):
     """
     MethodView 自定义异常
     """
-    C = {
-
-        400: Bad_Request,
-        401: NOT_AUTHORIZED,
-        403: FORBIDDEN,
-        500: ServerError,
-        666: NOT_TOKEN,
-        333: EX_TEST
-    }
-    code = C.get(data)[0]
-    print(code)
-    msg = C.get(data)[1]
-    print(msg)
+    C = custom_resp_dict
+    code = data
+    msg = C.get(data, 'ERROR')
     raise CustomException(code=code, msg=msg)
 
 
