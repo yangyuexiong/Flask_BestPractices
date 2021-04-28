@@ -1,34 +1,44 @@
 # Flask_BestPractices
 
-## <Flask 最佳实践>
+## Flask 最佳实践
 
-##### 这是一个项目结构,可以直接使用并开始编写业务
-
-##### 包含前后端分离/与不分离 jinja2 模版渲染
-
----------->>>>>>持续更新<<<<<<----------
-
-后续会使用此结构加上 Vue 与 React 实现一套前后分离的博客前后台。
-
-可能会再出 Tornado,Sanic,FastApi 等最佳实践。
-
-大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
-
-如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
-
-你不点 Star 我更新给谁看?
-
-Github:
-https://github.com/yangyuexiong/Flask_BestPractices
-
-码云:
-https://gitee.com/yangyuexiong/Flask_BestPractices
-
-Flask 官方文档
-https://flask.palletsprojects.com/
-
-Flask 中文文档
-https://dormousehole.readthedocs.io/en/latest/
+> ---------->>>>>>持续更新<<<<<<----------
+>
+> 这是一个项目结构,可以直接使用并开始编写业务
+>
+> 包含前后端分离 result api 以及 不分离 jinja2 模版渲染
+>
+> 后续会使用此结构加上 Vue 与 React 实现一套前后分离的博客前后台。
+>
+> 可能会再出 Tornado,Sanic,FastApi Aiohttp 等最佳实践。
+>
+> Aiohttp 最佳实践
+>
+> https://github.com/yangyuexiong/AioHttp_BestPractices
+>
+> 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
+>
+> 如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
+>
+> **你不点 Star 我更新给谁看?**
+>
+> **Github**:
+>
+> https://github.com/yangyuexiong/Flask_BestPractices
+>
+> **码云**:
+>
+> https://gitee.com/yangyuexiong/Flask_BestPractices
+>
+> **Flask 官方文档**
+>
+> https://flask.palletsprojects.com/
+>
+> **Flask 中文文档**
+>
+> https://dormousehole.readthedocs.io/en/latest/
+>
+> ---------->>>>>>感谢支持<<<<<<----------
 
 ```text
 Flask_BestPractices
@@ -152,7 +162,7 @@ Flask_BestPractices
 
   # 国外pip安装源(可以翻墙)
   url = "https://pypi.org/simple"
-  
+
   # 修改对应的 Python 版本
   [requires]
   python_version = "3.9"
@@ -305,7 +315,7 @@ Flask_BestPractices
     # 使用
     # MethodView 使用 ab_code
     # flask_restful 使用 ab_code_2
-  
+
     from common.libs.customException import ab_code,ab_code_2
 
     class FlaskRestfulCustomException(Resource):
