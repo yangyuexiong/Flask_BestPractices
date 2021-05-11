@@ -15,3 +15,4 @@ from flask import abort, render_template
 
 from common.libs.api_result import api_result
 from common.libs.customException import ab_code, ab_code_2
+from ExtendRegister.db_register import db

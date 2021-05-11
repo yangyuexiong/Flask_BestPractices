@@ -17,7 +17,8 @@ class RestfulDemoApi(Resource):
         data = {
             '当前进程id': os.getpid(),
             '父进程id': os.getppid(),
-            '线程id': threading.get_ident()
+            '线程id': threading.get_ident(),
+            'db id': id(db)
         }
 
         # print(1 / 0)  # 测试内部异常

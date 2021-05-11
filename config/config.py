@@ -11,12 +11,14 @@ from datetime import timedelta
 
 import redis
 
+project_name = 'Flask_BestPractices'
+
 
 def get_config():
     """获取配置文件"""
     conf = configparser.ConfigParser()
     flask_env = os.environ.get('FLASK_ENV')
-    base_path = os.getcwd().split('Flask_BestPractices')[0] + 'Flask_BestPractices/config/'
+    base_path = os.getcwd().split(project_name)[0] + '{}/config/'.format(project_name)
 
     default_env = {
         'config_path': base_path + 'dev.ini',
