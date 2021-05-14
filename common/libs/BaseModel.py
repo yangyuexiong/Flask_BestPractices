@@ -6,6 +6,7 @@
 # @Software: PyCharm
 
 import json
+import decimal
 from datetime import datetime
 
 from ExtendRegister.db_register import db
@@ -58,8 +59,15 @@ class BaseModel(db.Model):
 
         d = {}
         dict = self.__dict__
-        [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
+        # [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
         # print(d)
+        for i in self.keys():
+            v = dict.get(i.name, '')
+            if isinstance(v, decimal.Decimal):
+                v = round(float(v), 2)
+            else:
+                pass
+            d.update({i.name: v})
 
         d['create_time'] = str(d.get('create_time')) if d.get('create_time') else None
         d['update_time'] = str(d.get('update_time')) if d.get('update_time') else None
