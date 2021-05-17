@@ -6,17 +6,17 @@
 >
 > 这是一个项目结构,可以直接使用并开始编写业务
 >
-> 包含前后端分离 result api 以及 不分离 jinja2 模版渲染
+> 包含前后端分离 Result Api 以及 不分离 Jinja2 模版渲染
 >
-> 后续会使用此结构加上 Vue 与 React 实现一套前后分离的博客前后台。
+> 后续会使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
 >
-> 可能会再出 Tornado,Sanic,FastApi Aiohttp 等最佳实践。
+> 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
 >
 > Aiohttp 最佳实践
 >
 > https://github.com/yangyuexiong/AioHttp_BestPractices
 >
-> 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档。
+> 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档
 >
 > 如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
 >
@@ -154,8 +154,10 @@ Flask_BestPractices
 
 - 修改 pipenv 的 pip 安装源(科学上网(翻墙)的同学可以忽略)
 
+  - [Pipfile](./Pipfile)
+
   ```
-  Pipfile文件修改如下:
+  Pipfile 文件修改如下:
 
   # 国内pip安装源(不能翻墙的同学修改如下,在可以翻墙的情况下依旧国内pip源比较快)
   url = "https://mirrors.aliyun.com/pypi/simple"
@@ -232,36 +234,32 @@ Flask_BestPractices
   source ~/.bashrc
   ```
 
-## 访问例子(注意在 url 末尾要加上'/'否则会出现 308 报错,或者在定义 url 时不在末尾加上'/')
+## 配置文件
 
-- api:
+- [config.py](./config/config.py) 第 14 行
 
-  - http://0.0.0.0:9999/api
+  - project_name = '你的项目名称'
 
-- cms:
+- 前置准备(如:创建数据库)
 
-  - http://0.0.0.0:9999/cms
+  - [/config/dev.ini](./config/dev.ini)
+  - [/config/pro.ini](./config/pro.ini)
 
-- 其他业务模块:
+## ORM
 
-  - http://0.0.0.0:9999/m1/
-  - http://0.0.0.0:9999/m2/
-  - http://0.0.0.0:9999/m3/
+- (这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell)
 
-## 修改 config.py 文件
-
-- 数据库部分(先创建好数据库)
-- 其他配置根据需要修改/增加
-
-## 创建表(这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell)
-
-- manage.py 文件中已经定义好初始化数据,创建表等方法(根据需要自定义其他方法,详细例子:manage.py 文件)
+- [manage.py](./manage.py) 文件中已经定义好初始化数据,创建表等方法
 
   ```shell script
   pipenv run python3 manage.py
   ```
 
-- 首次!首次!首次! 创建表时执行(注意需要在虚拟环境中执行:即 pipenv shell)
+- 首次!首次!首次! 创建表时执行(在 Linux 下执行需要加上 pipenv run)
+
+  ```shell script
+  pipenv shell
+  ```
 
   ```shell script
   pipenv run python3 manage.py orm
@@ -273,62 +271,82 @@ Flask_BestPractices
   pipenv run python3 manage.py table
   ```
 
-## 业务实现
+## 路由注册
+
+- 创建(路由,Api,视图)
+
+  - [restful_demo.py](./app/api/restful_demo/restful_demo.py)
+  - [method_view_demo.py](./app/api/method_view_demo/method_view_demo.py)
+  - [route_demo.py](./app/api/route_demo/route_demo.py)
 
 - 路由注册
 
-  ```
-  /Flask_BestPractices/app/api/__init__.py
-  ```
+  - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
 
-- 其他注册
+- 路由绑定应用
 
-  ```
-  /Flask_BestPractices/ExtendRegister/bp_register.py
-  ```
+  - [/Flask_BestPractices/ExtendRegister/bp_register.py](./ExtendRegister/bp_register.py)
 
-## 钩子函数(拦截器)使用:
+## 钩子函数(拦截器):
 
-- 拿其中一个举例:业务逻辑根据自己需要编写
+- 拿其中一个举例(业务逻辑根据自己需要编写)
 
-  ```
-  /Flask_BestPractices/common/interceptors/ApiHook.py
-  ```
+  - [/Flask_BestPractices/common/interceptors/ApiHook.py](./common/interceptors/ApiHook.py)
 
-## 自定义异常添加使用:
+## 自定义异常:
 
-- 在<Flask_BestPractices/common/libs/customException.py>添加
+- 在 [customException.py](./common/libs/customException.py) 添加
 
   ```python
 
-    # 在 custom_resp_dict 添加 kay:value
-    custom_resp_dict = {
-        333: '测试自定义异常',
-        400: '参数类型错误',
-        401: '未登录_认证信息失败_令牌过期',
-        403: '无权限',
-        500: '服务器异常',
-        666: 'Token?',
-        996: '没救了'
-    }
+  # 在 custom_resp_dict 添加 kay:value
+  custom_resp_dict = {
+            333: '测试自定义异常',
+            400: '参数类型错误',
+            401: '未登录_认证信息失败_令牌过期',
+            403: '无权限',
+            500: '服务器异常',
+            666: 'Token?',
+            996: '没救了'
+        }
+  ```
 
-    # 使用
-    # MethodView 使用 ab_code
-    # flask_restful 使用 ab_code_2
+- 使用
+
+  ```python
 
     from common.libs.customException import ab_code,ab_code_2
 
+    # MethodView 使用 ab_code
     class FlaskRestfulCustomException(Resource):
 
         def get(self):
             ab_code_2(333)
 
+    # flask_restful 使用 ab_code_2
     class MethodViewCustomException(MethodView):
 
         def get(self):
             ab_code(333)
-
   ```
+
+## 访问例子
+
+- (注意在 url 末尾要加上'/'否则会出现 308 报错,或者在定义 url 时不在末尾加上'/')
+
+- api:
+
+  - http://0.0.0.0:9999/api/
+
+- cms:
+
+  - http://0.0.0.0:9999/cms/
+
+- 其他业务模块:
+
+  - http://0.0.0.0:9999/m1/
+  - http://0.0.0.0:9999/m2/
+  - http://0.0.0.0:9999/m3/
 
 ## 任务
 
