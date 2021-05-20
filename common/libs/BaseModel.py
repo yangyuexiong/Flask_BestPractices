@@ -35,7 +35,7 @@ class BaseModel(db.Model):
     create_timestamp = db.Column(BIGINT(20, unsigned=True), default=int(time.time()), comment='创建时间(时间戳)')
     update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, comment='更新时间(结构化时间)')
     update_timestamp = db.Column(BIGINT(20, unsigned=True), onupdate=int(time.time()), comment='更新时间(时间戳)')
-    is_deleted = db.Column(TINYINT(3, unsigned=True), server_default=text('1'), comment='1正常;2已删除')
+    is_deleted = db.Column(TINYINT(3, unsigned=True), server_default=text('0'), comment='0正常;其他:已删除')
     status = db.Column(TINYINT(3, unsigned=True), server_default=text('1'), comment='状态')
 
     def keys(self):
