@@ -7,30 +7,36 @@
 
 import json
 import decimal
+import warnings
+import time
 from datetime import datetime
+
+from sqlalchemy import text
 
 from ExtendRegister.db_register import db
 
 
 class BaseModel(db.Model):
     """
-    status:状态
+    id:id
     create_timestamp:创建时间戳
     create_time:创建时间DateTime
     update_timestamp:更新时间戳
     update_time:更新时间DateTime
+    is_deleted:是否删除
+    status:状态
     """
 
     __abstract__ = True
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True, comment='id')
-    status = db.Column('status', db.Integer, default=1, comment='状态:1正常,2删除')
-    create_time = db.Column('create_time', db.DateTime, default=datetime.now, comment='创建时间(结构化时间)')
-    create_timestamp = db.Column('create_timestamp', db.String(128), default=int(datetime.now().timestamp()),
-                                 comment='创建时间(时间戳)')
-    update_time = db.Column('update_time', db.DateTime, default=datetime.now, onupdate=datetime.now,
-                            comment='更新时间(结构化时间)')
-    update_timestamp = db.Column('update_timestamp', db.String(128), server_default='',
-                                 onupdate=int(datetime.now().timestamp()), comment='更新时间(时间戳)')
+    # create_time = db.Column(db.DateTime, default=datetime.now, comment='创建时间(结构化时间)')
+    create_time = db.Column(db.DateTime, server_default=db.func.now(), comment='创建时间(结构化时间)')
+    create_timestamp = db.Column(db.Integer, default=int(time.time()), comment='创建时间(时间戳)')
+    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, comment='更新时间(结构化时间)')
+    update_timestamp = db.Column(db.Integer, onupdate=int(time.time()), comment='更新时间(时间戳)')
+    is_deleted = db.Column(db.Integer, server_default=text('1'), comment='1正常;2已删除')
+    status = db.Column(db.Integer, server_default=text('1'), comment='状态')
 
     def keys(self):
         """
@@ -42,54 +48,53 @@ class BaseModel(db.Model):
     def __getitem__(self, item):
         return getattr(self, item)
 
-    def to_json(self):
-
+    def to_json(self, *args):
         """
-        旧方法
-        if "_sa_instance_state" in dict:
-            del dict["_sa_instance_state"]
-            del dict["_update_timestamp"]
-            del dict["_create_timestamp"]
-            del dict["_create_time"]
-            del dict["_update_time"]
-            del dict["_status"]
-            if str(self.__table__) == 'cms_user':
-                del dict["_password"]
+        json转化
+        :param args: 不需要返回的字段列表
+        :return:
         """
 
-        d = {}
-        dict = self.__dict__
-        # [d.update({i.name: dict.get(i.name, '')}) for i in self.keys()]
-        # print(d)
-        for i in self.keys():
-            v = dict.get(i.name, '')
-            if isinstance(v, decimal.Decimal):
-                v = round(float(v), 2)
+        model_json = {}
+        __dict = self.__dict__
+
+        for column in self.keys():
+            field = __dict.get(column.name)  # 获取字段名称
+            # print(column, type(column), type(field))
+            if isinstance(field, decimal.Decimal):  # Decimal -> float
+                field = round(float(field), 2)
+            elif isinstance(field, datetime):  # datetime -> str
+                field = str(field)
             else:
                 pass
-            d.update({i.name: v})
+            model_json.update({column.name: field})
 
-        d['create_time'] = str(d.get('create_time')) if d.get('create_time') else None
-        d['update_time'] = str(d.get('update_time')) if d.get('update_time') else None
+        if args:
+            for skip_field in args:
+                if model_json.get(skip_field):
+                    del model_json[skip_field]
 
-        # del d["update_timestamp"]
-        # del d["create_timestamp"]
-        # del d["create_time"]
-        # del d["update_time"]
-        # del d["status"]
-
-        return d
+        return model_json
 
     def update(self, **kwargs):
-        # print('self->', self)
+        """
+        更新
+        :param kwargs:
+        :return:
+        """
+
+        warnings.warn('该方法存在安全隐患,使用不当会导致数据错乱,建议停止使用')
         for attr, value in kwargs.items():
-            # print(self, attr, type(attr), value, type(value))
+            print(self, attr, type(attr), value, type(value))
             try:  # 部分属性无法setattr
                 setattr(self, attr, json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else str(value))
             except BaseException as e:
-                print('update error {}'.format(str(e)))
-        return self
+                raise TypeError('update error {}'.format(str(e)))
 
-    def delete_obj(self):
-        self.status = 2
+    def delete(self):
+        """
+        逻辑删除
+        :return:
+        """
+        self.is_deleted = 2
         db.session.commit()
