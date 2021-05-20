@@ -12,6 +12,7 @@ import time
 from datetime import datetime
 
 from sqlalchemy import text
+from sqlalchemy.dialects.mysql import BIGINT, TINYINT
 
 from ExtendRegister.db_register import db
 
@@ -29,14 +30,13 @@ class BaseModel(db.Model):
 
     __abstract__ = True
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True, comment='id')
-    # create_time = db.Column(db.DateTime, default=datetime.now, comment='创建时间(结构化时间)')
+    id = db.Column(BIGINT(20, unsigned=True), primary_key=True, autoincrement=True, comment='id')
     create_time = db.Column(db.DateTime, server_default=db.func.now(), comment='创建时间(结构化时间)')
-    create_timestamp = db.Column(db.Integer, default=int(time.time()), comment='创建时间(时间戳)')
+    create_timestamp = db.Column(BIGINT(20, unsigned=True), default=int(time.time()), comment='创建时间(时间戳)')
     update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, comment='更新时间(结构化时间)')
-    update_timestamp = db.Column(db.Integer, onupdate=int(time.time()), comment='更新时间(时间戳)')
-    is_deleted = db.Column(db.Integer, server_default=text('1'), comment='1正常;2已删除')
-    status = db.Column(db.Integer, server_default=text('1'), comment='状态')
+    update_timestamp = db.Column(BIGINT(20, unsigned=True), onupdate=int(time.time()), comment='更新时间(时间戳)')
+    is_deleted = db.Column(TINYINT(3, unsigned=True), server_default=text('1'), comment='1正常;2已删除')
+    status = db.Column(TINYINT(3, unsigned=True), server_default=text('1'), comment='状态')
 
     def keys(self):
         """
