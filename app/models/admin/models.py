@@ -7,8 +7,7 @@
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from ExtendRegister.db_register import db
-from common.libs.BaseModel import BaseModel
+from common.libs.BaseModel import *
 
 """
 RBAC
@@ -17,15 +16,16 @@ RBAC
 
 crm_user_and_role = db.Table(
     'cms_user_and_role',
-    db.Column('cms_user_id', db.Integer, db.ForeignKey('crm_user.id'), primary_key=True, comment='用户id'),
-    db.Column('cms_role_id', db.Integer, db.ForeignKey('crm_role.id'), primary_key=True, comment='角色id'),
+    db.Column('cms_user_id', BIGINT(20, unsigned=True), db.ForeignKey('crm_user.id'), primary_key=True, comment='用户id'),
+    db.Column('cms_role_id', BIGINT(20, unsigned=True), db.ForeignKey('crm_role.id'), primary_key=True, comment='角色id'),
     comment='用户_角色_中间表'
 )
 
 crm_permission_and_role = db.Table(
     'cms_permission_and_role',
-    db.Column('cms_permission_id', db.Integer, db.ForeignKey('crm_permission.id'), primary_key=True, comment='权限id'),
-    db.Column('cms_role_id', db.Integer, db.ForeignKey('crm_role.id'), primary_key=True, comment='角色id'),
+    db.Column('cms_permission_id', BIGINT(20, unsigned=True), db.ForeignKey('crm_permission.id'), primary_key=True,
+              comment='权限id'),
+    db.Column('cms_role_id', BIGINT(20, unsigned=True), db.ForeignKey('crm_role.id'), primary_key=True, comment='角色id'),
     comment='权限_角色_中间表'
 )
 
