@@ -4,7 +4,7 @@
 
 > ---------->>>>>>持续更新<<<<<<----------
 >
-> - [更细日志](./CHANGES.md)
+> - [更新日志](./CHANGES.md)
 >
 > - [Flask_BestPractices v1.0 README](./README1.0.md)
 >
