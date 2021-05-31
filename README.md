@@ -254,7 +254,7 @@ Flask_BestPractices
 
 - 这里我提供了一套简单的后台权限管理,用于测试数据迁移
 
-- [command_register.py](./ExtendRegister/command_register.py) 文件中已经定义好初始化数据,创建表等方法,并注册于 flask-cli 中
+- [command_register.py](./ExtendRegister/command_register.py) 文件中注册 flask-cli 当前已经定义好初始化数据,创建表等方法
 
   ```shell script
   pipenv shell
