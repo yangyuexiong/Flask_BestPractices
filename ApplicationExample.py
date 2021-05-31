@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2019-05-15 15:52
+# @Author  : ShaHeTop-Almighty-ares
+# @Email   : yang6333yyx@126.com
+# @File    : ApplicationExample.py
+# @Software: PyCharm
+
 import os
 
 from flask import Flask as _Flask
