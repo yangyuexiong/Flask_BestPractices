@@ -1,48 +1,5 @@
-# Flask_BestPractices
+# Flask_BestPractices V1.0 文档 
 
-## Flask 最佳实践
-
-> ---------->>>>>>持续更新<<<<<<----------
->
-> - [更细日志](./CHANGES.md)
->
-> - [Flask_BestPractices v1.0 README](./README1.0.md)
->
-> 这是一个项目结构,可以直接使用并开始编写业务
->
-> 包含前后端分离 Result Api 以及 不分离 Jinja2 模版渲染
->
-> 后续会使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
->
-> 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
->
-> Aiohttp 最佳实践
->
-> https://github.com/yangyuexiong/AioHttp_BestPractices
->
-> 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档
->
-> 如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
->
-> **你不点 Star 我更新给谁看?**
->
-> **Github**:
->
-> https://github.com/yangyuexiong/Flask_BestPractices
->
-> **码云**:
->
-> https://gitee.com/yangyuexiong/Flask_BestPractices
->
-> **Flask 官方文档**
->
-> https://flask.palletsprojects.com/
->
-> **Flask 中文文档**
->
-> https://dormousehole.readthedocs.io/en/latest/
->
-> ---------->>>>>>感谢支持<<<<<<----------
 
 ```text
 Flask_BestPractices
@@ -104,12 +61,10 @@ Flask_BestPractices
 ├── ExtendRegister(扩展统一注册)
 │   ├── __init__.py
 │   ├── bp_register.py(蓝图)
-│   ├── command_register.py(flask shell 注册)
 │   ├── conf_register.py(配置文件)
 │   ├── db_register.py(数据库)
 │   ├── excep_register.py(异常处理)
-│   ├── hook_register.py(路由钩子拦截器)
-│   └── model_register.py(模型统一导入用于迁移)
+│   └── hook_register.py(路由钩子拦截器)
 ├── logs
 │   ├── __init__.py
 │   └── tb.log
@@ -131,6 +86,7 @@ Flask_BestPractices
 │   └── test_env.py
 ├── ApplicationExample.py(应用实例)
 ├── LICENSE
+├── manage.py(脚本命令文件(初始化迁移环境,迁移数据库,映射数据库等一系列的操作))
 ├── Pipfile(环境依赖)
 ├── Pipfile.lock
 ├── README.md
@@ -252,83 +208,28 @@ Flask_BestPractices
 
 ## ORM
 
-- 这里我提供了一套简单的后台权限管理,用于测试数据迁移
+- (这里我提供了一套简单的后台权限管理:model/admin,可以自己设计你自己的权限管理或者直接开始设计你的表 和 manage shell)
 
-- [command_register.py](./ExtendRegister/command_register.py) 文件中已经定义好初始化数据,创建表等方法,并注册于 flask-cli 中
+- [manage.py](./manage.py) 文件中已经定义好初始化数据,创建表等方法
+
+  ```shell script
+  pipenv run python3 manage.py
+  ```
+
+- 首次!首次!首次! 创建表时执行(在 Linux 下执行需要加上 pipenv run)
 
   ```shell script
   pipenv shell
   ```
 
-  windows
-
   ```shell script
-  set FLASK_APP=ApplicationExample.py
+  pipenv run python3 manage.py orm
   ```
 
-  mac/linux
+- 每次！每次！每次！新增 model 表后在 manage.py 导入后执行(区别在于没有初始化:python3 manage.py db init)
 
   ```shell script
-  export FLASK_APP=ApplicationExample.py
-  ```
-
-  ```shell script
-  flask
-  ```
-
-- 首次!首次!首次! 创建表时执行
-
-  ```shell script
-  pipenv shell
-  ```
-
-  windows
-
-  ```shell script
-  set FLASK_APP=ApplicationExample.py
-  ```
-
-  mac/linux
-
-  ```shell script
-  export FLASK_APP=ApplicationExample.py
-  ```
-
-  ```shell script
-  flask orm
-  ```
-
-  或如下
-
-  ```shell script
-  flask db init
-  flask db migrate
-  flask db upgrade
-  ```
-
-- 每次！每次！每次！新增 model 在 [model_register.py](./ExtendRegister/model_register.py) 导入后执行
-
-  windows
-
-  ```shell script
-  set FLASK_APP=ApplicationExample.py
-  ```
-
-  mac/linux
-
-  ```shell script
-  export FLASK_APP=ApplicationExample.py
-  ```
-
-  ```shell script
-  flask table
-  ```
-
-  或如下
-
-  ```shell script
-  flask db migrate
-  flask db upgrade
+  pipenv run python3 manage.py table
   ```
 
 ## 路由注册
