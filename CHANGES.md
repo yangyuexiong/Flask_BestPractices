@@ -1,4 +1,4 @@
-# Flask_BestPractices 更细日志
+# Flask_BestPractices 更新日志
 
 **Release 2.0** - 2021-05-31
 
