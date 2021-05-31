@@ -6,14 +6,14 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-flask = "==1.1.4"
+flask = "*"
 flask-cors = "*"
 flask-restful = "*"
 flask-sqlalchemy = "*"
 redis = "*"
 requests = "*"
 flask-script = "*"
-flask-migrate = "==2.7.0"
+flask-migrate = "*"
 pymysql = "*"
 celery = "*"
 
