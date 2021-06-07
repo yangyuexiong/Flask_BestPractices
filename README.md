@@ -377,13 +377,14 @@ Flask_BestPractices
 
     from common.libs.customException import ab_code,ab_code_2
 
-    # MethodView 使用 ab_code
+    
+    # flask_restful 使用 ab_code_2
     class FlaskRestfulCustomException(Resource):
 
         def get(self):
             ab_code_2(333)
 
-    # flask_restful 使用 ab_code_2
+    # MethodView 使用 ab_code
     class MethodViewCustomException(MethodView):
 
         def get(self):
