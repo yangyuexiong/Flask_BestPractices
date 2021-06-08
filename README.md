@@ -198,7 +198,11 @@ Flask_BestPractices
 - Pycharm 配置 pipenv 虚拟环境(不使用 Pycharm 的同学可以忽略)
 
   ![image](images/f2.png)
+  
+  - Mac 
   ![image](images/f3.png)
+  
+  -Windows
   ![image](images/f3-1.png)
 
 - 配置 Pycharm 的 Flask 变量(因为 Pycharm 运行项目不会读取系统变量所以要配置在 Pycharm 中)
