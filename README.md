@@ -139,7 +139,7 @@ Flask_BestPractices
 
 ```
 
-## 安装
+## 一、安装
 
 - Python3.7 ～ 3.9
 - pip3
@@ -149,7 +149,7 @@ Flask_BestPractices
   pip3 install pipenv
   ```
 
-## 配置虚拟环境
+## 二、配置虚拟环境
 
 - 进入项目根目录
 
@@ -239,7 +239,7 @@ Flask_BestPractices
   source ~/.bashrc
   ```
 
-## 配置文件
+## 三、配置文件
 
 - [config.py](./config/config.py) 第 14 行
 
@@ -250,7 +250,7 @@ Flask_BestPractices
   - [/config/dev.ini](./config/dev.ini)
   - [/config/pro.ini](./config/pro.ini)
 
-## ORM
+## 四、ORM
 
 - 这里我提供了一套简单的后台权限管理,用于测试数据迁移
 
@@ -331,7 +331,7 @@ Flask_BestPractices
   flask db upgrade
   ```
 
-## 路由注册
+## 五、路由注册
 
 - 创建(路由,Api,视图)
 
@@ -347,13 +347,13 @@ Flask_BestPractices
 
   - [/Flask_BestPractices/ExtendRegister/bp_register.py](./ExtendRegister/bp_register.py)
 
-## 钩子函数(拦截器):
+## 六、钩子函数(拦截器):
 
 - 拿其中一个举例(业务逻辑根据自己需要编写)
 
   - [/Flask_BestPractices/common/interceptors/ApiHook.py](./common/interceptors/ApiHook.py)
 
-## 自定义异常:
+## 七、自定义异常:
 
 - 在 [customException.py](./common/libs/customException.py) 添加
 
@@ -391,7 +391,7 @@ Flask_BestPractices
             ab_code(333)
   ```
 
-## 访问例子
+## 八、接口调用
 
 - (注意在 url 末尾要加上'/'否则会出现 308 报错,或者在定义 url 时不在末尾加上'/')
 
@@ -409,7 +409,7 @@ Flask_BestPractices
   - http://0.0.0.0:9999/m2/
   - http://0.0.0.0:9999/m3/
 
-## 任务
+## 九、任务
 
 - 异步任务
 
@@ -431,12 +431,13 @@ Flask_BestPractices
       /APSchedulerTasks目录下直接执行clear_log.py文件
   ```
 
-## 部署(2019-06-18 更新):
+## 十、部署(2019-06-18 更新):
 
 - 我掘金的一篇文章
 
   - https://juejin.im/post/5d08574351882563f967d5b9
 
+## 备注
 - 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
 - 快试试快速实现你业务需求吧！！！嘻嘻！！！
