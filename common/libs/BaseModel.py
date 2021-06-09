@@ -76,25 +76,66 @@ class BaseModel(db.Model):
 
         return model_json
 
-    def update(self, **kwargs):
+    def save(self):
         """
-        更新
-        :param kwargs:
+        新增
         :return:
         """
+        try:
+            db.session.add(self)
+            db.session.commit()
+        except BaseException as e:
+            db.session.rollback()
+            raise TypeError('save error {}'.format(str(e)))
 
-        warnings.warn('该方法存在安全隐患,使用不当会导致数据错乱,建议停止使用')
+    @staticmethod
+    def save_all(model_list):
+        """
+        批量新增
+        :param model_list:
+        :return:
+        """
+        try:
+            db.session.add_all(model_list)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            raise TypeError('save_all error {}'.format(str(e)))
+
+    def update(self, *args, **kwargs):
+        """
+        更新
+        :param args: 不需要更新的字段列表 demo -> update(*["password"]) ...
+        :param kwargs: {字段:值} demo -> update(**{"name":"yyx"}) ...
+        :return:
+        """
+        if args:
+            args = list(args) + ['id', 'create_time']
+        else:
+            args = ['id', 'create_time']
+
         for attr, value in kwargs.items():
-            print(self, attr, type(attr), value, type(value))
-            try:  # 部分属性无法setattr
-                setattr(self, attr, json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else str(value))
-            except BaseException as e:
-                raise TypeError('update error {}'.format(str(e)))
+            # print(self, "【{}:{}】-【{}:{}】".format(attr, type(attr), value, type(value)))
+            if attr in self.__dict__.keys():
+                if attr not in args:
+                    new_value = json.dumps(value, ensure_ascii=False) if isinstance(value, dict) else str(value)
+                    setattr(self, attr, new_value)
+            else:
+                pass
+        try:
+            db.session.commit()
+        except BaseException as e:
+            db.session.rollback()
+            raise TypeError('update error {}'.format(str(e)))
 
     def delete(self):
         """
         逻辑删除
         :return:
         """
-        self.is_deleted = 2
-        db.session.commit()
+        try:
+            self.is_deleted = 2
+            db.session.commit()
+        except BaseException as e:
+            db.session.rollback()
+            raise TypeError('delete error {}'.format(str(e)))
