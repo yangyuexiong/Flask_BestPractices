@@ -15,6 +15,8 @@ class RestfulDemoApi(Resource):
 
     def get(self):
         data = {
+            'time': time(),
+            'datetime': datetime.now(),
             '当前进程id': os.getpid(),
             '父进程id': os.getppid(),
             '线程id': threading.get_ident(),
