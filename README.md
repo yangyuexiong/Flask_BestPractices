@@ -14,11 +14,15 @@
 >
 > 后续会使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
 >
-> 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
+> Web端: https://github.com/yangyuexiong
 >
-> Aiohttp 最佳实践
+> C端Server: https://github.com/yangyuexiong
 >
-> https://github.com/yangyuexiong/AioHttp_BestPractices
+> 后台Server: https://github.com/yangyuexiong/EC_project
+>
+> Aiohttp 最佳实践: https://github.com/yangyuexiong/AioHttp_BestPractices
+>
+>可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
 >
 > 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档
 >
