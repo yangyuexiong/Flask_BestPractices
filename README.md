@@ -12,7 +12,7 @@
 >
 > 包含前后端分离 Result Api 以及 不分离 Jinja2 模版渲染
 >
-> 后续会使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
+> 以下使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
 >
 > Web端: https://github.com/yangyuexiong
 >
@@ -22,7 +22,7 @@
 >
 > Aiohttp 最佳实践: https://github.com/yangyuexiong/AioHttp_BestPractices
 >
->可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
+> 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
 >
 > 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档
 >
