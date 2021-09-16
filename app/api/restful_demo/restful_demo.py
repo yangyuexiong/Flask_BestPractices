@@ -5,7 +5,7 @@
 # @File    : restful_demo.py
 # @Software: PyCharm
 
-from app.all_reference import *
+from all_reference import *
 
 
 class RestfulDemoApi(Resource):

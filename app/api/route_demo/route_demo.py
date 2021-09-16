@@ -5,7 +5,7 @@
 # @File    : route_demo.py
 # @Software: PyCharm
 
-from app.all_reference import *
+from all_reference import *
 
 
 def module_01_index():
