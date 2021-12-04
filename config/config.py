@@ -11,14 +11,14 @@ from datetime import timedelta
 
 import redis
 
-project_name = 'Flask_BestPractices'
+PROJECT_NAME = 'Flask_BestPractices'
 
 
 def get_config():
     """获取配置文件"""
     conf = configparser.ConfigParser()
     flask_env = os.environ.get('FLASK_ENV')
-    base_path = os.getcwd().split(project_name)[0] + '{}/config/'.format(project_name)
+    base_path = os.getcwd().split(PROJECT_NAME)[0] + '{}/config/'.format(PROJECT_NAME)
 
     default_env = {
         'config_path': base_path + 'dev.ini',
@@ -40,42 +40,6 @@ def get_config():
     return conf
 
 
-def app_conf():
-    """
-    # 设置环境
-    export FLASK_ENV=development
-    export FLASK_ENV=production
-
-    PS:
-    * 由于使用PyCharm直接运行时无法通过os.environ.get('FLASK_ENV')获取到系统变量,所以export FLASK_ENV=='环境'之后FLASK_ENV依然为None。
-    ** 在Flask中FLASK_ENV==None 会默认使用production作为环境。
-    *** 需要使用终端python run.py执行。os.environ.get('FLASK_ENV')才会生效获取到设置的环境。
-    **** 为了方便使用PyCharm进行开发调试:添加使用以下代码将production覆盖。
-    解决方法:
-    (1)使用以下代码覆盖 //部署生产环境时注释以下代码(不建议使用)
-        if not os.environ.get('FLASK_ENV'):
-            config_key = 'default'
-            print('Pycharm开发环境:%s' % config_key)
-            return config_key
-    (2)在PyCharm设置变量FLASK_ENV=development
-    """
-    config_key = 'development'
-
-    if os.environ.get('FLASK_ENV') == 'development':
-        config_key = 'development'
-        # print('开发环境:%s' % config_key)
-        return config_key
-
-    elif os.environ.get('FLASK_ENV') == 'production':
-        config_key = 'production'
-        # print('生产环境:%s' % config_key)
-        return config_key
-    else:
-        config_key = 'production'
-        # print('生产环境:%s' % config_key)
-        return config_key
-
-
 class BaseConfig:
     """配置基类"""
     # SECRET_KEY = os.urandom(24)
@@ -91,60 +55,6 @@ class BaseConfig:
         pass
 
 
-class DevelopmentConfig(BaseConfig):
-    """开发环境"""
-
-    """Mysql"""
-    HOSTNAME = '127.0.0.1'
-    PORT = '3306'
-    USERNAME = 'root'
-    PASSWORD = '12345678'
-    DATABASE = 'Flask_BestPractices'
-    # &autocommit=true
-    DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
-        USERNAME,
-        PASSWORD,
-        HOSTNAME,
-        PORT,
-        DATABASE)
-    SQLALCHEMY_DATABASE_URI = DB_URI
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-
-    """Redis"""
-    # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
-    REDIS_PWD = 123456
-    POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True, db=1)
-    R = redis.Redis(connection_pool=POOL)
-
-
-class ProductionConfig(BaseConfig):
-    """生产环境"""
-    DEBUG = False
-    RUN_PORT = 5000
-
-    """Mysql"""
-    HOSTNAME = '127.0.0.1'
-    PORT = '3306'
-    USERNAME = 'root'
-    PASSWORD = ''
-    DATABASE = 'Flask_BestPractices'
-    # &autocommit=true
-    DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
-        USERNAME,
-        PASSWORD,
-        HOSTNAME,
-        PORT,
-        DATABASE)
-    SQLALCHEMY_DATABASE_URI = DB_URI
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-
-    """Redis"""
-    # host是redis主机，需要redis服务端和客户端都起着 redis默认端口是6379
-    REDIS_PWD = 123456
-    POOL = redis.ConnectionPool(host='localhost', port=6379, password=REDIS_PWD, decode_responses=True, db=1)
-    R = redis.Redis(connection_pool=POOL)
-
-
 class NewConfig(BaseConfig):
     """区分配置文件"""
 
@@ -158,12 +68,17 @@ class NewConfig(BaseConfig):
     RUN_PORT = conf.getint('base', 'RUN_PORT')
 
     # mysql
+    MYSQL_USERNAME = conf.get('mysql', 'USERNAME')
+    MYSQL_PASSWORD = conf.get('mysql', 'PASSWORD')
+    MYSQL_HOSTNAME = conf.get('mysql', 'HOSTNAME')
+    MYSQL_PORT = conf.getint('mysql', 'PORT')
+    MYSQL_DATABASE = conf.get('mysql', 'DATABASE')
     DB_URI = 'mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(
-        conf.get('mysql', 'USERNAME'),
-        conf.get('mysql', 'PASSWORD'),
-        conf.get('mysql', 'HOSTNAME'),
-        conf.getint('mysql', 'PORT'),
-        conf.get('mysql', 'DATABASE')
+        MYSQL_USERNAME,
+        MYSQL_PASSWORD,
+        MYSQL_HOSTNAME,
+        MYSQL_PORT,
+        MYSQL_DATABASE
     )
     SQLALCHEMY_DATABASE_URI = DB_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = True
@@ -181,16 +96,14 @@ class NewConfig(BaseConfig):
 
 
 config_obj = {
-    'production': ProductionConfig,
-    'development': DevelopmentConfig,
-    'default': DevelopmentConfig,
+    'production': None,
+    'development': None,
+    'default': NewConfig,
     'new': NewConfig
 }
 
 if __name__ == '__main__':
     print(config_obj['default'].DB_URI)
-    cof = app_conf()
-    print(cof)
 
     print(config_obj['default'].DB_URI)
     print(config_obj['new'].DB_URI)
