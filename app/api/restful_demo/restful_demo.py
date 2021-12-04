@@ -42,10 +42,10 @@ class DemoApi(Resource):
         return 'flask restful get 参数{},{}'.format(page, size)
 
     def post(self):
-        return 'flask restful post'
+        return api_result(code=200, message='flask restful post')
 
     def put(self):
-        return 'flask restful put'
+        return api_result(code=200, message='flask restful put')
 
     def delete(self):
-        return 'flask restful delete'
+        return api_result(code=200, message='flask restful delete')

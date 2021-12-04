@@ -34,8 +34,8 @@ Method View 类视图路由注册
 无参数: http://0.0.0.0:9999/cms/demo
 带参数: http://0.0.0.0:9999/cms/demo/999/888
 """
-method_view_api.add_url_rule('/', view_func=MethodViewDemo.as_view('demo'))
-method_view_api.add_url_rule('/<page>/<size>/', view_func=MethodViewDemo.as_view('demo_pram'))
+method_view_api.add_url_rule('/demo', view_func=MethodViewDemo.as_view('demo'))
+method_view_api.add_url_rule('/demo/<page>/<size>/', view_func=MethodViewDemo.as_view('demo_pram'))
 
 """
 路由注册
