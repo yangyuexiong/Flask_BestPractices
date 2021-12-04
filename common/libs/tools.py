@@ -6,29 +6,29 @@
 # @Software: PyCharm
 
 import json
-from datetime import datetime
 
 from flask import request
+from loguru import logger
 
 
 def print_logs():
     """logs"""
-    print(datetime.now())
     host = request.host
-    print(host)
     method = request.method
-    print(method)
     path = request.path
-    print(path)
-    print('=== headers ===')
+    logger.info(host)
+    logger.info(method)
+    logger.info(path)
+    logger.info('=== headers ===')
     headers = {k: v for k, v in request.headers.items()}
     json_format(headers)
-    print('=== params ===')
+    logger.info('=== params ===')
     json_format(request.args.to_dict())
-    print('=== data ===')
+    logger.info('=== data ===')
     json_format(request.form.to_dict())
-    print('=== json ===')
+    logger.info('=== json ===')
     json_format(request.get_json())
+    logger.info('=== end print_logs ===')
 
 
 def check_keys(dic, *keys):

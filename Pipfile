@@ -16,6 +16,7 @@ flask-script = "*"
 flask-migrate = "*"
 pymysql = "*"
 celery = "*"
+loguru = "*"
 
 [requires]
 python_version = "3.9"
