@@ -17,6 +17,20 @@ from ExtendRegister.excep_register import *  # 导入异常处理器
 app = create_app()
 
 
+def show():
+    flask_env = os.environ.get('FLASK_ENV')
+    print('<', '-' * 66, '>')
+    print('时间:{}'.format(datetime.datetime.now()))
+    print('操作系统:{}'.format(platform.system()))
+    print('项目路径:{}'.format(os.getcwd()))
+    print('当前环境:{}'.format(flask_env))
+    print('父进程id:{}'.format(os.getppid()))
+    print('子进程id:{}'.format(os.getpid()))
+    print('线程id:{}'.format(threading.get_ident()))
+    # print(app.url_map)
+    print('<', '-' * 66, '>')
+
+
 def main():
     """启动"""
 
@@ -36,16 +50,5 @@ if __name__ == '__main__':
     export FLASK_ENV=production
     """
 
-    flask_env = os.environ.get('FLASK_ENV')
-    print('<', '-' * 66, '>')
-    print('github-地址:https://github.com/yangyuexiong/Flask_BestPractices')
-    print('gitee-地址:https://gitee.com/yangyuexiong/Flask_BestPractices')
-    print('时间:{}'.format(datetime.datetime.now()))
-    print('操作系统:{}'.format(platform.system()))
-    print('项目路径:{}'.format(os.getcwd()))
-    print('当前环境:{}'.format(flask_env))
-    print('父进程id:{}'.format(os.getppid()))
-    print('子进程id:{}'.format(os.getpid()))
-    print('线程id:{}'.format(threading.get_ident()))
-    print('<', '-' * 66, '>')
+    show()
     main()
