@@ -11,7 +11,7 @@ import uuid
 from flask import g
 
 from config.config import config_obj
-from common.libs.customException import ab_code_2
+from common.libs.customException import flask_restful_ab_code as ab_code_2
 
 """
 test:

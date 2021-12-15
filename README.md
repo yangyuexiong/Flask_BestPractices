@@ -384,7 +384,8 @@ Flask_BestPractices
 
   ```python
 
-    from common.libs.customException import ab_code,ab_code_2
+    from common.libs.customException import method_view_ab_code as ab_code
+    from common.libs.customException import flask_restful_ab_code as ab_code_2
 
     
     # flask_restful 使用 ab_code_2

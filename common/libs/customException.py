@@ -35,44 +35,29 @@ class CustomException(HTTPException):
         super(CustomException, self).__init__(self.code, self.msg)
 
 
-def ab_code(data):
-    """
-    MethodView 自定义异常
-    """
-    C = custom_resp_dict
-    code = data
-    msg = C.get(data, 'ERROR')
+def method_view_ab_code(code):
+    """MethodView 自定义异常"""
+    msg = custom_resp_dict.get(code, 'ERROR')
     raise CustomException(code=code, msg=msg)
 
 
-def ab_code_restful(data):
-    """
-    flask_restful 自定义异常
-    """
-    C = custom_resp_dict
-    if C.get(data):
-        code = data
-        msg = C.get(data)
+def flask_restful_ab_code(code):
+    """Flask Restful 自定义异常"""
+
+    message = custom_resp_dict.get(code)
+
+    if message:
         req = request.method + ' ' + request.path
-        r = {
+        result = {
             "code": code,
-            "msg": msg,
+            "message": message,
             "request": req
         }
-        return jsonify(r)
+        result = jsonify(result)
+
     else:
-        return data
+        result = code
 
-
-# 修改 flask_restful.abort
-def custom_abord(http_status_code, *args, **kwargs):
-    return abort(ab_code_restful(http_status_code))
-
-
-# 简化 flask_restful.abort
-def ab_code_2(code):
-    """
-    flask_restful 自定义异常
-    """
-    flask_restful.abort = custom_abord
+    # 修改、简化 flask_restful.abort
+    flask_restful.abort = abort(result)
     flask_restful.abort(code)
