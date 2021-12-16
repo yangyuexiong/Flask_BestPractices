@@ -23,20 +23,22 @@ def errors(e):
     logger.error('异常类型:{}'.format(type(e)))
 
     data = request.method + ' ' + request.path
+
     if isinstance(e, CustomException):
         logger.error('-----CustomException-----')
-        print_logs()
-        traceback.print_exc()
-        return api_result(code=e.code, message='CustomException:【{}】'.format(str(e.msg)), data=data)
+        code = e.code
+        message = f'CustomException:【{str(e.msg)}】'
 
     elif isinstance(e, HTTPException) and (300 <= e.code < 600):
         logger.error('-----HTTPException-----')
-        print_logs()
-        traceback.print_exc()
-        return api_result(code=e.code, message='HTTPException:【{}】'.format(str(e)), data=data)
+        code = e.code
+        message = f'HTTPException:【{str(e)}】'
 
     else:
         logger.error('-----Exception-----')
-        print_logs()
-        traceback.print_exc()
-        return api_result(code=500, message='Exception:【{}】'.format(str(e)), data=data)
+        code = 500
+        message = f'Exception:【{str(e)}】'
+
+    print_logs()
+    traceback.print_exc()
+    return api_result(code=code, message=message, data=data)
