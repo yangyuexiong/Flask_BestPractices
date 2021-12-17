@@ -40,6 +40,7 @@ def main():
 
     else:
         # app.run(debug=True, host='0.0.0.0', port=9999)
+        os.environ['is_debug'] = "is_debug"
         app.run(debug=app.config.get('DEBUG'), host=app.config.get('RUN_HOST'), port=app.config.get('RUN_PORT'))
 
 
