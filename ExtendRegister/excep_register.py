@@ -5,6 +5,7 @@
 # @File    : excep_register.py
 # @Software: PyCharm
 
+import os
 import traceback
 
 from flask import request
@@ -24,20 +25,22 @@ def errors(e):
 
     data = request.method + ' ' + request.path
 
+    sw = True if os.environ.get('is_debug') else False
+
     if isinstance(e, CustomException):
         logger.error('-----CustomException-----')
         code = e.code
-        message = f'CustomException:【{str(e.msg)}】'
+        message = f'CustomException:【{str(e.msg)}】' if sw else str(e.msg)
 
     elif isinstance(e, HTTPException) and (300 <= e.code < 600):
         logger.error('-----HTTPException-----')
         code = e.code
-        message = f'HTTPException:【{str(e)}】'
+        message = f'HTTPException:【{str(e)}】' if sw else str(e)
 
     else:
         logger.error('-----Exception-----')
         code = 500
-        message = f'Exception:【{str(e)}】'
+        message = f'Exception:【{str(e)}】' if sw else str(e)
 
     print_logs()
     traceback.print_exc()
