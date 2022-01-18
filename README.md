@@ -441,11 +441,12 @@ Flask_BestPractices
       /APSchedulerTasks目录下直接执行clear_log.py文件
   ```
 
-## 十、部署(2019-06-18 更新):
+## 十、部署(2022-01-18 更新):
 
 - 我掘金的一篇文章
 
-  - https://juejin.im/post/5d08574351882563f967d5b9
+  - 本机部署：https://juejin.cn/post/6844903870250876935
+  - Docker部署：https://juejin.cn/post/7054460759526342687
 
 ## 备注
 - 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
