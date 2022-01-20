@@ -443,10 +443,11 @@ Flask_BestPractices
 
 ## 十、部署(2022-01-18 更新):
 
-- 我掘金的一篇文章
-
-  - 本机部署：https://juejin.cn/post/6844903870250876935
-  - Docker部署：https://juejin.cn/post/7054460759526342687
+- 我掘金的一些文章
+  
+  - 方法1：本机部署：https://juejin.cn/post/6844903870250876935
+  - 方法2：Docker部署：https://juejin.cn/post/7054460759526342687
+  - 方法3：执行该项目下的 `server_start.sh` (推荐)
 
 ## 备注
 - 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
