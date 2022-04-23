@@ -9,3 +9,8 @@
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+
+
+def register_db(app):
+    """db注册"""
+    db.init_app(app)

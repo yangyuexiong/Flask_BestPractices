@@ -11,8 +11,6 @@ import threading
 import datetime
 
 from ApplicationExample import create_app
-from ExtendRegister.hook_register import *  # 导入拦截器
-from ExtendRegister.excep_register import *  # 导入异常处理器
 
 app = create_app()
 
@@ -34,21 +32,25 @@ def show():
 def main():
     """启动"""
 
+    host = app.config['RUN_HOST']
+    port = app.config['RUN_PORT']
+    debug = app.config['DEBUG']
+
     # Linux服务器启动
     if platform.system() == 'Linux':
-        app.run(host=app.config['RUN_HOST'], port=app.config['RUN_PORT'])
+        app.run(host=host, port=port)
 
     else:
         # app.run(debug=True, host='0.0.0.0', port=9999)
         os.environ['is_debug'] = "is_debug"
-        app.run(debug=app.config.get('DEBUG'), host=app.config.get('RUN_HOST'), port=app.config.get('RUN_PORT'))
+        app.run(debug=debug, host=host, port=port)
 
 
 if __name__ == '__main__':
     """
     # 设置环境
-    export FLASK_ENV=development
-    export FLASK_ENV=production
+    export FLASK_ENV='development'
+    export FLASK_ENV='production'
     """
 
     show()

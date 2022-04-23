@@ -5,16 +5,28 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
-from flask import request
+import time
 
-from app.api import method_view_api
+import shortuuid
+from flask import request, g
+from loguru import logger
+
 from common.libs.tools import print_logs
 
 
-@method_view_api.before_request
-def before_request_cms():
-    print('cms_before_request')
+def crm_before_request():
+    g.log_uuid = "{}_{}".format(str(int(time.time())), shortuuid.uuid())
+    logger.info('crm_before_request')
+    logger.info('request log_uuid:{}'.format(g.log_uuid))
     print_logs()
     if '/cms' in request.path:
-        print('cms')
+        print('访问cms')
         return
+
+
+def crm_after_request(response):
+    logger.info('crm_after_request')
+    logger.info('response log_uuid:{}'.format(g.log_uuid))
+    logger.info('=== response ===')
+    response.headers['log_uuid'] = g.log_uuid
+    return response

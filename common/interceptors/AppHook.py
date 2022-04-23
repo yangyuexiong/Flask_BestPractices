@@ -5,16 +5,17 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
+
 from flask import request
 
-from ApplicationExample import create_app
 
-app = create_app()
-
-
-@app.before_request
-def before_request_api():
-    print('app app app app')
+def app_before_request():
+    print('=== app_before_request ===')
     path = request.path
     print(path)
     return
+
+
+def app_after_request(response):
+    print('=== app_after_request ===')
+    return response

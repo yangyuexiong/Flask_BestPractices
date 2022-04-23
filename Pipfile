@@ -17,6 +17,7 @@ flask-migrate = "*"
 pymysql = "*"
 celery = "*"
 loguru = "*"
+shortuuid = "*"
 
 [requires]
 python_version = "3.9"

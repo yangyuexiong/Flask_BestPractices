@@ -5,16 +5,30 @@
 # @File    : ApiHook.py
 # @Software: PyCharm
 
-from flask import request
 
-from app.api import restful_api
+import time
+
+import shortuuid
+from loguru import logger
+from flask import request, g
+
 from common.libs.tools import print_logs
 
 
-@restful_api.before_request
-def before_request_api():
-    print('=== api_before_request ===')
+def api_before_request():
+    g.log_uuid = "{}_{}".format(str(int(time.time())), shortuuid.uuid())
+    logger.info('api_before_request')
+    logger.info('request log_uuid:{}'.format(g.log_uuid))
     print_logs()
+
     if '/api' in request.path:
         print('访问api')
         return
+
+
+def api_after_request(response):
+    logger.info('api_after_request')
+    logger.info('response log_uuid:{}'.format(g.log_uuid))
+    logger.info('=== response ===')
+    response.headers['log_uuid'] = g.log_uuid
+    return response

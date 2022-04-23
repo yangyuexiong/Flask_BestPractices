@@ -4,8 +4,3 @@
 # @Email   : yang6333yyx@126.com
 # @File    : __init__.py.py
 # @Software: PyCharm
-
-
-from .ApiHook import *
-from .CmsHook import *
-from .AppHook import *
