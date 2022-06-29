@@ -29,6 +29,7 @@ class BaseModel(db.Model):
     """
 
     hidden_fields = []  # 不需要返回的字段与值
+    handle_property = False  # 是否调用 gen_property_fields()
 
     __abstract__ = True
 
@@ -38,7 +39,7 @@ class BaseModel(db.Model):
     update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, comment='更新时间(结构化时间)')
     update_timestamp = db.Column(BIGINT(20, unsigned=True), onupdate=int(time.time()), comment='更新时间(时间戳)')
     is_deleted = db.Column(BIGINT(20, unsigned=True), default=0, comment='0正常;其他:已删除')
-    status = db.Column(TINYINT(3, unsigned=True), server_default=text('1'), comment='状态')
+    status = db.Column(TINYINT(1, unsigned=True), server_default=text('1'), comment='状态')
 
     def __getitem__(self, item):
         return getattr(self, item)
@@ -57,6 +58,50 @@ class BaseModel(db.Model):
         """
         return self.__dict__
 
+    def gen_property_fields(self):
+        """
+        处理 @property 装修的字段，使其在 to_json() 返回原来的字段与值
+
+        class Order(BaseModel):
+            __tablename__ = 'order'
+            __table_args__ = {'comment': '订单表'}
+
+            _total_amount = db.Column("total_amount", db.DECIMAL(10, 0), default=0, comment='订单总金额')
+
+            @property
+            def total_amount(self):
+                return self._total_amount / 100
+
+            @total_amount.setter
+            def total_amount(self, value):
+                self._total_amount = value * 100
+
+        """
+
+        # for name, obj in vars(self.__class__).items():
+        #     if isinstance(obj, property):
+        #         print(name, obj)
+        #         print({name: self.__getattribute__(name)})
+
+        d = {name: self.__getattribute__(name) for name, obj in vars(self.__class__).items() if
+             isinstance(obj, property)}
+
+        return d
+
+    @staticmethod
+    def var_format(field):
+        """字段值类型格式化,防止json格式化错误"""
+
+        if not field:
+            return field
+        elif isinstance(field, decimal.Decimal):  # Decimal -> float
+            field = round(float(field), 2)
+        elif isinstance(field, datetime):  # datetime -> str
+            field = str(field)
+        else:
+            pass  # 其他后续补充
+        return field
+
     def to_json(self, hidden_fields=None):
         """
         Json序列化
@@ -72,14 +117,16 @@ class BaseModel(db.Model):
             if column not in hf:  # 不需要返回的字段与值
                 if hasattr(self, column):
                     field = getattr(self, column)
-                    if isinstance(field, decimal.Decimal):  # Decimal -> float
-                        field = round(float(field), 2)
-                    elif isinstance(field, datetime):  # datetime -> str
-                        field = str(field)
-                    model_json[column] = field
+                    model_json[column] = self.var_format(field=field)
 
         del model_json['_sa_instance_state']
 
+        if self.handle_property:
+            property_dict = self.gen_property_fields()
+            if property_dict:
+                for key, var in property_dict.items():
+                    property_dict[key] = self.var_format(field=var)
+            model_json.update(property_dict)
         return model_json
 
     def save(self):
