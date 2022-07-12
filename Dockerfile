@@ -7,10 +7,11 @@ RUN apt-get update
 RUN apt-get -y install net-tools
 
 # 更新pip
-RUN pip install --upgrade pip
+RUN pip install --upgrade pip -i https://pypi.doubanio.com/simple
 
 # 安装pipenv
-RUN pip install pipenv
+# RUN pip install pipenv
+RUN pip install pipenv -i https://pypi.doubanio.com/simple
 
 # 项目
 WORKDIR /srv
@@ -29,5 +30,8 @@ RUN apt-get install libpcre3
 RUN apt-get install libpcre3-dev -y
 RUN pip install uwsgi --no-cache-dir
 
+# 时区
+RUN cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 # 启动
-CMD export FLASK_ENV='production' && uwsgi --ini exile_uwsgi_for_docker.ini
+CMD export FLASK_ENV='production' && uwsgi --ini uwsgi_for_docker.ini
