@@ -163,7 +163,7 @@ Flask_BestPractices
 
 - 修改 pipenv 的 pip 安装源(科学上网(翻墙)的同学可以忽略)
 
-  - [Pipfile](./Pipfile)
+    - [Pipfile](./Pipfile)
 
   ```
   Pipfile 文件修改如下:
@@ -202,10 +202,10 @@ Flask_BestPractices
 - Pycharm 配置 pipenv 虚拟环境(不使用 Pycharm 的同学可以忽略)
 
   ![image](images/f2.png)
-  
-- Mac 
+
+- Mac
   ![image](images/f3.png)
-  
+
 - Windows
   ![image](images/f3-1.png)
 
@@ -252,12 +252,12 @@ Flask_BestPractices
 
 - [config.py](./config/config.py) 第 14 行
 
-  - project_name = '你的项目名称'
+    - project_name = '你的项目名称'
 
 - 前置准备(如:创建数据库)
 
-  - [/config/dev.ini](./config/dev.ini)
-  - [/config/pro.ini](./config/pro.ini)
+    - [/config/dev.ini](./config/dev.ini)
+    - [/config/pro.ini](./config/pro.ini)
 
 ## 四、ORM
 
@@ -344,23 +344,28 @@ Flask_BestPractices
 
 - 创建(路由,Api,视图)
 
-  - [restful_demo.py](./app/api/restful_demo/restful_demo.py)
-  - [method_view_demo.py](./app/api/method_view_demo/method_view_demo.py)
-  - [route_demo.py](./app/api/route_demo/route_demo.py)
+    - [restful_demo.py](./app/api/restful_demo/restful_demo.py)
+    - [method_view_demo.py](./app/api/method_view_demo/method_view_demo.py)
+    - [route_demo.py](./app/api/route_demo/route_demo.py)
 
 - 路由注册
 
-  - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
+    - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
 
 - 路由绑定应用
 
-  - [/Flask_BestPractices/ExtendRegister/bp_register.py](./ExtendRegister/bp_register.py)
+    - [/Flask_BestPractices/ExtendRegister/bp_register.py](./ExtendRegister/bp_register.py)
+
+- 获取请求参数例子
+
+    - [demo_api.py](./app/api/demo_api/demo_api.py)
+    - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
 
 ## 六、钩子函数(拦截器):
 
 - 拿其中一个举例(业务逻辑根据自己需要编写)
 
-  - [/Flask_BestPractices/common/interceptors/ApiHook.py](./common/interceptors/ApiHook.py)
+    - [/Flask_BestPractices/common/interceptors/ApiHook.py](./common/interceptors/ApiHook.py)
 
 ## 七、自定义异常:
 
@@ -407,33 +412,36 @@ Flask_BestPractices
 
 - api:
 
-  - http://0.0.0.0:9999/api/
+    - http://0.0.0.0:9999/api/
 
 - cms:
 
-  - http://0.0.0.0:9999/cms/
+    - http://0.0.0.0:9999/cms/
 
 - 其他业务模块:
 
-  - http://0.0.0.0:9999/m1/
-  - http://0.0.0.0:9999/m2/
-  - http://0.0.0.0:9999/m3/
+    - http://0.0.0.0:9999/m1/
+    - http://0.0.0.0:9999/m2/
+    - http://0.0.0.0:9999/m3/
 
 ## 九、任务
 
-- 异步任务
+- 异步任务(celery5.2)(更新时间：2022-07-19)
 
-  ```
-  注意:配置好redis,如果使用MQ等其他需要对应修改配置后在启动
-  启动celery例子(必须要在/CeleryAsyncTasks目录下启动以及配置好redis):
-      /CeleryAsyncTasks/main.py里面含有启动/停止等命令例子,模拟邮件发送任务例子.
+    - 配置文件
 
-  调用任务例子:
-      启动后调用任务例子:
-      调用任务例子: /test/test_celery.py
-  ```
+        - [celeryconfig.py](./config/celeryconfig.py)
 
-- 定时任务
+    - 启动celery例子(需要先进入pipenv shell后在执行celery命令)
+
+        - [celery_app.py](./celery_app.py)
+
+    - 任务例子(新增任务需要再上述celeryconfig.py中引入)
+        - [celery_app.py](./tasks/celery_tasks/task01.py)
+        - [celery_app.py](./tasks/celery_tasks/task02.py)
+        - [celery_app.py](./tasks/celery_tasks/task03.py)
+  
+- 定时任务(待等更新...)
   ```
   使用例子:
       /tasks/APSchedulerTasks/clear_log.py文件中包含3钟常用方法,以清除日子为例子
@@ -444,12 +452,13 @@ Flask_BestPractices
 ## 十、部署(2022-01-18 更新):
 
 - 我掘金的一些文章
-  
-  - 方法1：本机部署：https://juejin.cn/post/6844903870250876935
-  - 方法2：Docker部署：https://juejin.cn/post/7054460759526342687
-  - 方法3：执行该项目下的 `server_start.sh` (推荐)
+
+    - 方法1：本机部署：https://juejin.cn/post/6844903870250876935
+    - 方法2：Docker部署：https://juejin.cn/post/7054460759526342687
+    - 方法3：执行该项目下的 `server_start.sh` (推荐)
 
 ## 备注
+
 - 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
 
 - 快试试快速实现你业务需求吧！！！嘻嘻！！！
