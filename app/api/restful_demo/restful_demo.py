@@ -22,10 +22,6 @@ class RestfulDemoApi(Resource):
             '线程id': threading.get_ident(),
             'db id': id(db)
         }
-
-        # print(1 / 0)  # 测试内部异常
-        # return ab_code_2(666)  # 测试自定义异常
-
         return api_result(code=200, message='flask restful demo', data=data)
 
     def post(self):
@@ -39,7 +35,7 @@ class DemoApi(Resource):
     """
 
     def get(self, page=1, size=10):
-        return 'flask restful get 参数{},{}'.format(page, size)
+        return f'flask restful get 参数{page},{size}'
 
     def post(self):
         return api_result(code=200, message='flask restful post')
