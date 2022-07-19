@@ -361,6 +361,11 @@ Flask_BestPractices
     - [demo_api.py](./app/api/demo_api/demo_api.py)
     - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
 
+- 测试全局异常
+
+  - [test_api.py](./app/api/test_api/test_api.py)
+  - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
+  
 ## 六、钩子函数(拦截器):
 
 - 拿其中一个举例(业务逻辑根据自己需要编写)
@@ -437,9 +442,9 @@ Flask_BestPractices
         - [celery_app.py](./celery_app.py)
 
     - 任务例子(新增任务需要再上述celeryconfig.py中引入)
-        - [celery_app.py](./tasks/celery_tasks/task01.py)
-        - [celery_app.py](./tasks/celery_tasks/task02.py)
-        - [celery_app.py](./tasks/celery_tasks/task03.py)
+        - [task01.py](./tasks/celery_tasks/task01.py)
+        - [task02.py](./tasks/celery_tasks/task02.py)
+        - [task03.py](./tasks/celery_tasks/task03.py)
   
 - 定时任务(待等更新...)
   ```
