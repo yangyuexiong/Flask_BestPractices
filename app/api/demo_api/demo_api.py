@@ -78,4 +78,6 @@ class MethodViewBytesData(MethodView):
         """获取二进制data传参"""
 
         data = request.get_data()
-        return api_result(code=200, message='MethodView获取二进制data传参', data=data)
+        print(data)
+        print(type(data))
+        return api_result(code=200, message='MethodView获取二进制data传参', data=f"data is  {type(data)}")

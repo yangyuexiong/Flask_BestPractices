@@ -9,21 +9,19 @@
 import requests
 
 base_url = 'http://0.0.0.0:9999/'
-api = base_url + 'api/'
-cms = base_url + 'cms/'
+cms = base_url + 'cms'
 
-r = requests.get(api)
-print(r.json())
+resp1 = requests.get(url=cms + "/mv_params")
+print(resp1.json())
 
-r1 = requests.get(cms)
-print(r1.json())
+resp2 = requests.post(url=cms + "/mv_json", json={"a": "123"})
+print(resp2.json())
 
-r2 = requests.get(cms + 'test')
-print(r2.url)
-print(r2.json())
+resp3 = requests.post(url=cms + "/mv_form_data", data={"a": "123"})
+print(resp3.json())
+
+resp4 = requests.post(url=cms + "/mv_bytes_data", data=b'{"a":"123"}')
+print(resp4.json())
 
 if __name__ == '__main__':
     pass
-
-
-
