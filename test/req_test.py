@@ -11,7 +11,12 @@ import requests
 base_url = 'http://0.0.0.0:9999/'
 cms = base_url + 'cms'
 
-resp1 = requests.get(url=cms + "/mv_params")
+payload = {
+    "a": "a",
+    "b": "b",
+    "c": "c"
+}
+resp1 = requests.get(url=cms + "/mv_params?a=1&b=2", params=payload)
 print(resp1.json())
 
 resp2 = requests.post(url=cms + "/mv_json", json={"a": "123"})
