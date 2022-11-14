@@ -6,8 +6,6 @@
 >
 > - [更新日志](./CHANGES.md)
 >
-> - [Flask_BestPractices v1.0 README](./README1.0.md)
->
 > 这是一个项目结构,可以直接使用并开始编写业务
 >
 > 包含前后端分离 Result Api 以及 不分离 Jinja2 模版渲染
@@ -250,10 +248,6 @@ Flask_BestPractices
 
 ## 三、配置文件
 
-- [config.py](./config/config.py) 第 14 行
-
-    - project_name = '你的项目名称'
-
 - 前置准备(如:创建数据库)
 
     - [/config/dev.ini](./config/dev.ini)
@@ -363,9 +357,9 @@ Flask_BestPractices
 
 - 测试全局异常
 
-  - [test_api.py](./app/api/test_api/test_api.py)
-  - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
-  
+    - [test_api.py](./app/api/test_api/test_api.py)
+    - [/Flask_BestPractices/app/api/**init**.py](./app/api/__init__.py)
+
 ## 六、钩子函数(拦截器):
 
 - 拿其中一个举例(业务逻辑根据自己需要编写)
@@ -445,7 +439,7 @@ Flask_BestPractices
         - [task01.py](./tasks/celery_tasks/task01.py)
         - [task02.py](./tasks/celery_tasks/task02.py)
         - [task03.py](./tasks/celery_tasks/task03.py)
-  
+
 - 定时任务(待等更新...)
   ```
   使用例子:
