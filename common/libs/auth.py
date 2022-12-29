@@ -5,13 +5,10 @@
 # @File    : auth.py
 # @Software: PyCharm
 
-
+import json
 import uuid
 
-from flask import g
-
 from config.config import config_obj
-from common.libs.customException import flask_restful_ab_code as ab_code_2
 
 """
 test:
@@ -43,107 +40,152 @@ class Token:
     """
     Token
     """
-    token = None
 
-    @classmethod
-    def gen_token(cls):
-        """生成token"""
-        token = str(uuid.uuid1()).replace('-', 'YYx')
+    def __init__(self):
+        self.token = None
+        self.mix = "Y"
+        self.timeout = 3600 * 24 * 30
+
+    def gen_token(self):
+        """
+        生成token
+        :return:
+        """
+
+        token = str(uuid.uuid1()).replace('-', self.mix)
+        self.token = token
         return token
 
-    @classmethod
-    def set_token(cls, user):
-        """缓存token"""
-        token = cls.gen_token()
-        cls.token = token
-        R.hmset('user:{}'.format(user), {'token': token})
-        R.set('token:{}'.format(token), user)
-        R.expire('user:{}'.format(user), 3600 * 24 * 30)
-        R.expire('token:{}'.format(token), 3600 * 24 * 30)
-
-    @classmethod
-    def del_token(cls, token):
-        """删除token"""
-
+    def set_token(self, user_info: dict):
         """
-        通过token查找user
-        Input:
-            get token:05885a4aYYxa18aYYx11ebYYxa1f9YYxacde48001122
-        Output:
-            yangyuexiong
-            
-        
-        获取token
-        Input:
-            hget user:yangyuexiong token
-        Output:
-            05885a4aYYxa18aYYx11ebYYxa1f9YYxacde48001122
+        缓存token
+        :param user_info:
+        :return:
+
+        1.生成:token
+        2.写入:token
+        3.写入:user_info
+
+        Redis command
+            Input:
+                hset user:1-admin "token" "d9d116fcY8671Y11edYa559Yacde48001122"
+
+            Input:
+                hset token:d9d116fcY8671Y11edYa559Yacde48001122 "user_info" '{"id":1,"username":"admin"}'
         """
 
-        user = R.get('token:{}'.format(token))
-        kv = 'user:{}'.format(user)
-        user_token = R.hget(kv, 'token')
-
-        """
-        删除
-        del yangyuexiong
-        del user:yangyuexiong
-        del token:13894378YYxa19bYYx11ebYYxa996YYxacde48001122
-        """
-        R.delete(user)
-        R.delete(kv, 'token')
-        R.delete('token:{}'.format(user_token))
+        self.gen_token()
+        user_id = user_info.get('id')
+        username = user_info.get('username')
+        token_key = f"user:{user_id}-{username}"
+        user_key = f"token:{self.token}"
+        R.hset(name=token_key, mapping={"token": self.token})
+        R.hset(name=user_key, mapping={"user_info": json.dumps(user_info, ensure_ascii=False)})
+        R.expire(token_key, self.timeout)
+        R.expire(user_key, self.timeout)
 
     @classmethod
-    def check_token(cls, user, user_id):
-        """检验token"""
+    def del_cache(cls, token):
+        """
+        删除缓存
+        :param token:
+        :return:
+
+        1.通过token查找user_info
+        2.删除token
+        3.删除user_info
+
+        Redis command
+            Input:
+                hget token:d9d116fcY8671Y11edYa559Yacde48001122 user_info
+
+            Output:
+                {"id":"1","username":"admin"...}
+
+            Input:
+                del user:1-admin
+
+            Input:
+                del token:d9d116fcY8671Y11edYa559Yacde48001122
 
         """
-        Input:
-            hget user:yangyuexiong token
-            
-        Output:
-            05885a4aYYxa18aYYx11ebYYxa1f9YYxacde48001122
+
+        user_key = f"token:{token}"
+        query_user_info = R.hget(user_key, 'user_info')
+        if query_user_info:
+            user_info = json.loads(query_user_info)
+            user_id = user_info.get('id')
+            username = user_info.get('username')
+            token_key = f"user:{user_id}-{username}"
+            R.delete(user_key)
+            R.delete(token_key)
+
+    def refresh_cache(self, user_info: dict):
         """
-        kv = 'user:{}'.format(user)
-        user_token = R.hget(kv, 'token')
-        if user_token:
-            cls.del_token(token=user_token)  # 删除旧token
+        刷新缓存
+        :param user_info:
+        :return:
 
-        cls.set_token(user=user)  # 生成新的token
-        R.set(user, user_id, 3600 * 24 * 30)  # 用户(手机,名称等):id
+        1.通过用户id-用户名称获取token
+        2.删除旧的token与user_info
+        3.更新写入token与user_info
 
+        Redis command
+            Input:
+                hget user:1-admin token
 
-def check_user(token, model):
-    """
+            Output:
+                d9d116fcY8671Y11edYa559Yacde48001122
+        """
 
-    :param token: token
-    :param model: 用户模型类
-    :return:
-    """
-    # 通过token获取手机号或者username
-    # redis命令: get token:7d86561d3742e605e4c0ee42111995cd
-    user = R.get('token:{}'.format(token))
-    if not user:  # token错误或者失效
-        g.app_user = None
-        # ab_code(401)
-        ab_code_2(401)
-    else:
-        user_id = R.get(user)  # 通过手机号或其他字段获取用户id  // redis命令: get yyx
-        user = model.query.get(user_id)  # 通过id查询用户->获取用户对象
-        g.app_user = user  # 创建全局对象
+        user_id = user_info.get('id')
+        username = user_info.get('username')
+        token_key = f'user:{user_id}-{username}'
+        old_token = R.hget(token_key, 'token')
+        if old_token:
+            self.del_cache(token=old_token)  # 删除旧token
+
+        self.set_token(user_info=user_info)  # 生成新的token并写入Redis
+
+    @staticmethod
+    def get_user_info(token):
+        """
+        通过token或用户信息
+        :param token:
+        :return:
+        """
+
+        query_token = R.hget(f"token:{token}", 'user_info')
+        if query_token:
+            user_info = json.loads(query_token)
+            return user_info
+        else:
+            return None
 
 
 if __name__ == '__main__':
-    """
-    [redis]
-    REDIS_HOST = localhost
-    REDIS_PORT = 6379
-    REDIS_PWD = 123456
-    REDIS_DB = 1
-    DECODE_RESPONSES = True
-    """
-
     t = Token()
-    t.check_token(user='yangyuexiong', user_id=33)
+    d = {
+        "id": 1,
+        "is_deleted": 0,
+        "code": "00001",
+        "status": 1,
+        "login_type": None,
+        "username": "admin",
+        "creator": "shell",
+        "create_time": "2021-11-11 11:15:29",
+        "nickname": "yyx",
+        "creator_id": 0,
+        "modifier": "admin",
+        "create_timestamp": 1636600147,
+        "phone": "15011111111",
+        "modifier_id": 1,
+        "update_time": "2022-08-17 17:53:07",
+        "mail": "yang6333yyx@126.com",
+        "remark": "游客",
+        "update_timestamp": 1660729764
+    }
+    t.refresh_cache(user_info=d)
     print(t.token)
+    user_info = t.get_user_info(token=t.token)
+    print(user_info)
