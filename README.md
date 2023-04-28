@@ -143,7 +143,7 @@ Flask_BestPractices
 
 ## 一、安装
 
-- Python3.7 ～ 3.9
+- Python3.9+
 - pip3
 - pipenv
 
@@ -167,7 +167,7 @@ Flask_BestPractices
   Pipfile 文件修改如下:
 
   # 国内pip安装源(不能翻墙的同学修改如下,在可以翻墙的情况下依旧国内pip源比较快)
-  url = "https://mirrors.aliyun.com/pypi/simple"
+  url = "https://pypi.doubanio.com/simple"
 
   # 国外pip安装源(可以翻墙)
   url = "https://pypi.org/simple"
@@ -212,13 +212,17 @@ Flask_BestPractices
   ![image](images/f4.png)
   ![image](images/f5.png)
 
-- 配置 Flask 系统变量(原本操作系统中并没有 FLASK_ENV 变量,所以 Flask 启动的时候默认为 production,为了区分开发/生产需要通过以下方式配置)(以下配置只能在终端启动项目生效在 Pycharm 不生效)
+- 配置 Flask 运行变量
 
-- Windows 系统(一般用于开发环境,所有配置为开发的变量:development)
+    - FLASK_ENV：Flask运行环境(启动的时候默认 `production` 为了区分`开发`与`生产`通过以下方式配置，以下配置只能在终端启动项目生效在`Pycharm`不生效)
+    - FLASK_DEBUG：Flask2.3之后需要用到，1-True;0-False
+    - FLASK_APP：Flask应用实例，用于执行orm迁移，flask cli脚本，异步任务等需要。
+
+- Windows 系统(一般用于开发环境，`FLASK_ENV`为`development`，`FLASK_DEBUG`为`1`)
 
   ![image](images/f6.png)
 
-- MacOS 系统(同样也配置为开发环境,所有配置为开发的变量:development)
+- MacOS 系统(一般用于开发环境，`FLASK_ENV`为`development`，`FLASK_DEBUG`为`1`)
 
   ```shell script
   vim ~/.bash_profile
@@ -227,21 +231,24 @@ Flask_BestPractices
   ![image](images/f7.png)
 
   ```
-  打开文件找到(如果没看到这个文件 按: shift按键+command按键+ . 按键。就会显示隐藏文件因为隐藏文件一般不显示/需要使其隐藏,再按一次 shift按键+command按键+ . 按键)
+  打开文件找到：
+      如果没看到这个文件 按: `shift`按键+`command`按键+ `.` 按键。就会显示隐藏文件因为隐藏文件一般不显示
+  需要使其隐藏：
+      再按一次 `shift`按键+`command`按键+ `.` 按键
   ```
 
-  ![image](images/f8.png)
+  ![image](images/mac_bash_profile.png)
 
   ```shell script
   生效配置文件
   source ~/.bash_profile
   ```
 
-- Linux 系统(一般使用为生产环境,所有配置为生产的变量:production)
+- Linux 系统(一般使用为生产环境，`FLASK_ENV`为`production`，`FLASK_DEBUG`为`0`)
   ```shell script
   vim ~/.bashrc
   ```
-  ![image](images/f9.png)
+  ![image](images/linux_bashrc.png)
   ```shell script
   source ~/.bashrc
   ```
@@ -260,78 +267,32 @@ Flask_BestPractices
 - [command_register.py](./ExtendRegister/command_register.py) 文件中注册 flask-cli 当前已经定义好初始化数据,创建表等方法
 
   ```shell script
+  进入项目环境
+  
   pipenv shell
   ```
 
-  windows
-
   ```shell script
-  set FLASK_APP=ApplicationExample.py
-  ```
-
-  mac/linux
-
-  ```shell script
-  export FLASK_APP=ApplicationExample.py
-  ```
-
-  ```shell script
+  查看项目下所有cli脚本与命令(即: flask 命令名称)
+  
   flask
   ```
 
-- 首次!首次!首次! 创建表时执行
+- 创建表与新增表时执行(如果已经在项目环境中请忽略：pipenv shell)
 
   ```shell script
   pipenv shell
-  ```
-
-  windows
-
-  ```shell script
-  set FLASK_APP=ApplicationExample.py
-  ```
-
-  mac/linux
-
-  ```shell script
-  export FLASK_APP=ApplicationExample.py
   ```
 
   ```shell script
   flask orm
   ```
 
-  或如下
+
+- 新增 model 后，需要在 [model_register.py](./ExtendRegister/model_register.py) 导入后执行
 
   ```shell script
-  flask db init
-  flask db migrate
-  flask db upgrade
-  ```
-
-- 每次！每次！每次！新增 model 在 [model_register.py](./ExtendRegister/model_register.py) 导入后执行
-
-  windows
-
-  ```shell script
-  set FLASK_APP=ApplicationExample.py
-  ```
-
-  mac/linux
-
-  ```shell script
-  export FLASK_APP=ApplicationExample.py
-  ```
-
-  ```shell script
-  flask table
-  ```
-
-  或如下
-
-  ```shell script
-  flask db migrate
-  flask db upgrade
+  flask orm
   ```
 
 ## 五、路由注册
