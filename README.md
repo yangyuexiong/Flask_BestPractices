@@ -218,11 +218,17 @@ Flask_BestPractices
     - FLASK_DEBUG：Flask2.3之后需要用到，1-True;0-False
     - FLASK_APP：Flask应用实例，用于执行orm迁移，flask cli脚本，异步任务等需要。
 
-- Windows 系统(一般用于开发环境，`FLASK_ENV`为`development`，`FLASK_DEBUG`为`1`)
+- Windows 系统(一般用于开发环境)
+    - `FLASK_ENV`为`development`
+    - `FLASK_DEBUG`为`1`
+    - `FLASK_APP`为`ApplicationExample.py`
 
   ![image](images/f6.png)
 
-- MacOS 系统(一般用于开发环境，`FLASK_ENV`为`development`，`FLASK_DEBUG`为`1`)
+- MacOS 系统(一般用于开发环境)
+    - `FLASK_ENV`为`development`
+    - `FLASK_DEBUG`为`1`
+    - `FLASK_APP`为`ApplicationExample.py`
 
   ```shell script
   vim ~/.bash_profile
@@ -244,7 +250,11 @@ Flask_BestPractices
   source ~/.bash_profile
   ```
 
-- Linux 系统(一般使用为生产环境，`FLASK_ENV`为`production`，`FLASK_DEBUG`为`0`)
+- Linux 系统(一般使用为生产环境)
+    - `FLASK_ENV`为`production`
+    - `FLASK_DEBUG`为`0`
+    - `FLASK_APP`为`ApplicationExample.py`
+  
   ```shell script
   vim ~/.bashrc
   ```
