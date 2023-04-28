@@ -34,3 +34,6 @@ def create_app():
     register_db(app)  # db注册
     Migrate(app, db)  # ORM迁移
     return app
+
+
+app = create_app()

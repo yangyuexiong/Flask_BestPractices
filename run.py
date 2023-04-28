@@ -10,9 +10,7 @@ import platform
 import threading
 import datetime
 
-from ApplicationExample import create_app
-
-app = create_app()
+from ApplicationExample import app
 
 
 def show():
@@ -51,6 +49,7 @@ if __name__ == '__main__':
     # 设置环境
     export FLASK_ENV='development'
     export FLASK_ENV='production'
+    export FLASK_ENV='docker_production'
     """
 
     show()

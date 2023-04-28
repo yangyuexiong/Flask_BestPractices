@@ -7,7 +7,7 @@
 
 
 from celery import Celery
-from ApplicationExample import create_app
+from ApplicationExample import app
 
 
 def create_celery(app):
@@ -45,7 +45,6 @@ def create_celery(app):
     return my_celery
 
 
-app = create_app()
 cel = create_celery(app)
 
 """

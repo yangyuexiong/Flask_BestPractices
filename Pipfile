@@ -1,9 +1,7 @@
 [[source]]
-name = "pypi"
-url = "https://mirrors.aliyun.com/pypi/simple"
+url = "https://pypi.doubanio.com/simple"
 verify_ssl = true
-
-[dev-packages]
+name = "pypi"
 
 [packages]
 flask = "*"
@@ -18,6 +16,8 @@ pymysql = "*"
 celery = "*"
 loguru = "*"
 shortuuid = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.9"
