@@ -10,7 +10,9 @@ import platform
 import threading
 import datetime
 
-from ApplicationExample import app
+from ApplicationExample import create_app
+
+app = create_app()
 
 
 def show():

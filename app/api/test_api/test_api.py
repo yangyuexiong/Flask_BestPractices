@@ -7,6 +7,7 @@
 
 
 from all_reference import *
+from tasks.celery_tasks.task03 import test_orm
 
 
 class TestMethodView(MethodView):
@@ -46,6 +47,7 @@ class TestCeleryTask(MethodView):
 
     def get(self):
         """测试异步任务"""
-        from tasks.celery_tasks.task03 import test_orm
-        test_orm.delay()
-        return 'ok'
+
+        results = test_orm.delay()
+        print(results)
+        return api_result(code=200, message='操作成功,请前往日志查看执行结果', data=[str(results)])
