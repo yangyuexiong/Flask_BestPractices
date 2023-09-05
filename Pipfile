@@ -16,6 +16,7 @@ pymysql = "*"
 celery = "*"
 loguru = "*"
 shortuuid = "*"
+apscheduler = "*"
 
 [dev-packages]
 

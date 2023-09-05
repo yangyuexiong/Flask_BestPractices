@@ -254,7 +254,7 @@ Flask_BestPractices
     - `FLASK_ENV`为`production`
     - `FLASK_DEBUG`为`0`
     - `FLASK_APP`为`ApplicationExample.py`
-  
+
   ```shell script
   vim ~/.bashrc
   ```
@@ -411,13 +411,19 @@ Flask_BestPractices
         - [task02.py](./tasks/celery_tasks/task02.py)
         - [task03.py](./tasks/celery_tasks/task03.py)
 
-- 定时任务(待等更新...)
-  ```
-  使用例子:
-      /tasks/APSchedulerTasks/clear_log.py文件中包含3钟常用方法,以清除日子为例子
-  启动:
-      /APSchedulerTasks目录下直接执行clear_log.py文件
-  ```
+- 定时任务
+
+    - 间隔触发任务
+
+        - [interval_test.py](./tasks/apscheduler_tasks/interval_test.py)
+
+    - 周期触发任务
+
+        - [cron_test.py](./tasks/apscheduler_tasks/cron_test.py)
+
+    - 日期触发任务
+
+        - [date_test.py](./tasks/apscheduler_tasks/date_test.py)
 
 ## 十、部署(2022-01-18 更新):
 
