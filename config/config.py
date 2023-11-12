@@ -10,6 +10,7 @@ import configparser
 from datetime import timedelta
 
 import redis
+from pymongo import MongoClient
 
 
 def get_config():
@@ -91,6 +92,12 @@ class NewConfig(BaseConfig):
     }
     POOL = redis.ConnectionPool(**redis_obj)
     R = redis.Redis(connection_pool=POOL)
+
+    # MongoDB
+    MONGO_HOST = conf.get('mongodb', 'MONGO_HOST')
+    MONGO_PORT = conf.get('mongodb', 'MONGO_PORT')
+    MONGO_DB = conf.get('mongodb', 'MONGO_DB')
+    MG = MongoClient(f"mongodb://{MONGO_HOST}:{MONGO_PORT}/")
 
 
 config_obj = {
