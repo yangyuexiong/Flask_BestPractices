@@ -8,17 +8,17 @@
 >
 > 这是一个项目结构,可以直接使用并开始编写业务
 >
-> 包含前后端分离 Result Api 以及 不分离 Jinja2 模版渲染
+> 包含前后端分离 Restful Api 以及 不分离 Jinja2 模版渲染
 >
-> 以下使用此结构加上 Vue 与 React 实现一套前后分离的电商前后台
+> 以下使用此结构结合 Vue 实现一套前后分自动化测试平台
 >
-> Web端: https://github.com/yangyuexiong
+> 自动化测试平台Web端: https://github.com/ExileLine/ExileTestPlatformWeb
 >
-> C端Server: https://github.com/yangyuexiong
->
-> 后台Server: https://github.com/yangyuexiong/EC_project
+> 自动化测试平台服务端: https://github.com/ExileLine/ExileTestPlatformServer
 >
 > Aiohttp 最佳实践: https://github.com/yangyuexiong/AioHttp_BestPractices
+>
+> Fastapi 最佳实践(即将完成...): https://github.com/yangyuexiong/FastApi_BestPractices
 >
 > 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
 >
