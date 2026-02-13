@@ -6,23 +6,21 @@
 >
 > - [更新日志](./CHANGES.md)
 >
-> 这是一个项目结构,可以直接使用并开始编写业务(作为热爱Python开发的你们,希望在熟悉`Flask`开发后,继续学习`Fastapi`)
+> 至2026`Flask`已不是`Python`首选的Web框架，但作为学习Python后端开发该项目结构还有一定学习价值以及在小项目中比较受用
+> 
+> 这是一个项目结构，可以直接使用并开始编写业务(作为热爱Python开发的你们，希望在熟悉`Flask`开发后，继续学习`Fastapi`)
+> 
+> 该项目包含前后端分离 Restful Api 以及 不分离 Jinja2 模版渲染
 >
-> 包含前后端分离 Restful Api 以及 不分离 Jinja2 模版渲染
->
-> 以下使用此结构结合 Vue 实现一套前后分自动化测试平台
+> 以下使用此结构结合`Vue`实现一套前后分自动化测试平台
 >
 > 自动化测试平台Web端: https://github.com/ExileLine/ExileTestPlatformWeb
 >
 > 自动化测试平台服务端: https://github.com/ExileLine/ExileTestPlatformServer
 >
-> Aiohttp 最佳实践: https://github.com/yangyuexiong/AioHttp_BestPractices
+> `Fastapi`最佳实践: https://github.com/yangyuexiong/FastApi_BestPractices
 >
-> Fastapi 最佳实践(即将完成...): https://github.com/yangyuexiong/FastApi_BestPractices
->
-> 可能会再出 Tornado,Sanic,FastApi,Aiohttp 等最佳实践
->
-> 大佬们！下面简陋的文档凑合先看着,有空闲时间补上详细使用文档
+> 大佬们！下面简陋的文档凑合先看着，有空闲时间补上详细使用文档
 >
 > 如有疑问 -> QQ or Wechat : 417993207 (使用遇到问题请马上联系我会及时为你解答)
 >
@@ -145,7 +143,7 @@ Flask_BestPractices
 
 - Python3.9+
 - pip3
-- pipenv
+- pipenv(在新项目中更推荐使用uv)
 
   ```shell script
   pip3 install pipenv
@@ -435,6 +433,6 @@ Flask_BestPractices
 
 ## 备注
 
-- 代码中可能存在大量打印调试代码语句(print('xxxx'))可以将其注释或者删除。
+- 代码中可能存在大量打印调试代码语句`print('xxxx')`可以将其注释或者删除。
 
 - 快试试快速实现你业务需求吧！！！嘻嘻！！！
